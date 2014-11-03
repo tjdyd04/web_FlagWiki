@@ -31,7 +31,7 @@
             select: function(event, element) {
                 jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
                             
-               $.get('Testpage.jsp',
+               $.get('test.jsp',
                      {idx: $('#idx'+jidx).val()},
                      function(data){
                         $('#bottom').html(data);

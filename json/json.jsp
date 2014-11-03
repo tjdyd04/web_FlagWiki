@@ -21,7 +21,7 @@
     	JSONObject obj=new JSONObject();
 		obj.put("idx",rs.getString(1));
     	obj.put("title",rs.getString(2));
-    	obj.put("cotent",rs.getString(3));
+    	obj.put("content",rs.getString(3));
     	itemList.add(obj);
     }
 	
