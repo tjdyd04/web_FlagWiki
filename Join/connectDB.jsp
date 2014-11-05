@@ -35,6 +35,9 @@ try{
 	stmt.close();
 	conn.close();
 
+
+	response.sendRedirect("member_list.jsp");
+
 }catch(Exception e){ 	
 	out.println(e);
 }
