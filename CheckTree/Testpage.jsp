@@ -14,8 +14,18 @@ $(document).ready(function(){
         var html = '';
         $.each(data, function(entryIndex, entry) {
             html += '<div>';
-            html += '<h3>' + entry.idx + '</h3>';
-            html += '<span>' + entry.title + '</span>';
+            html += '<h3>';
+			html += '<span>';
+			if(entry.branch!=0){
+				html+= entry.branch;
+				if(entry.branch!=0 && entry.leaf == 0){
+					html+= '.';
+				}
+			}
+			if(entry.leaf!=0){
+				html+= '-' + entry.leaf + '.';  
+			}
+			html += entry.title + '</span></h3>';
             html += '<p>' + entry.content + '</p>';
             html += '</div>';
         });

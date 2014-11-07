@@ -15,7 +15,36 @@
 <script type="text/javascript">
     //<!--
     $(document).ready(function() {
-        $('#tree').tree({
+		$.getJSON('jsontest.jsp',function(data){
+		var html = '';
+		var leaf_num;
+        $.each(data, function(entryIndex, entry) {
+			if(entry.branch==0){
+				html += '<ul>';
+				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
+			}
+			if(entry.branch!=0 && entry.leaf==0){
+				leaf_num = entry.leaf_num;
+				html += '<ul>';
+				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
+				if(leaf_num !=0){
+					html += '<ul>';
+				}else{
+					html += '</ul>';
+				}
+			}
+			if(entry.branch!=0 && entry.leaf!=0){
+				html += '<li><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
+				if(entry.leaf == leaf_num){
+					html += '</ul></ul>';
+				}
+			}
+		});	
+
+
+		html += '</ul>';
+		$('#tree').html(html);
+       	$('#tree').tree({
             collapseUiIcon: 'ui-icon-plus',
             expandUiIcon: 'ui-icon-minus',             
             onCheck: {
@@ -29,55 +58,24 @@
                 
             },
             select: function(event, element) {
-                jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
-                            
+               jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
                $.get('jsBoard.jsp',
                      {idx: $('#idx'+jidx).val()},
                      function(data){
                         $('#bottom').html(data);
-               });
+          		     });
                     
-            }
+            	}
             
-        });
-           
-  });
+        	});
+  		});
+	});          
+  
 //-->
 </script>
 </head>    
 <body>
-<div id="tree">
-    <ul>
-        <li class='collapsed'><input type="checkbox"><span idx='0'>컴퓨터 공학</span>
-                <input type="hidden" id="idx0" value='total'>    
-			<ul>
-                <li><input type="checkbox"><span idx='1'>1.개념 및 정의</span>
-                <input type="hidden" id="idx1" value='1'>    
-            </ul>
-            <ul>
-                <li><input type="checkbox"><span idx='2'>2.역사와 발전단계</span>
-				<input type="hidden" id="idx2" value='2'>
-            </ul>
-            <ul>
-                <li><input type="checkbox"><span idx='3'>3.주요 분야 및 컴퓨터공학의 발전전망</span>
-				<input type="hidden" id="idx3" value='3'>
-                <ul>
-                    <li><input type="checkbox"><span idx='3-1'>1)컴퓨터공학의 주요분야</span>
-                    <li><input type="checkbox"><span idx='3-2'>2)컴퓨터공학의 발전방향</span>
-                </ul>    
-            </ul>
-            <ul>
-                <li><input type="checkbox"><span idx='4'>4.컴퓨터공학의 주요 과목</span>
-            </ul>
-            <ul>
-                <li><input type="checkbox"><span idx='5'>5.주요 분야 및 관련 직업군</span>
-                <ul>
-                    <li><input type="checkbox"><span idx='5-1'>1)주요용어</span>
-                    <li><input type="checkbox"><span idx='5-2'>2)관련 직업군</span>
-                </ul>    
-            </ul>
-    </ul>
-</div>    
+<div id="tree"></div>    
 <div id="bottom"></div>    
 </body>    
 </html>    

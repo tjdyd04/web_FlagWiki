@@ -5,11 +5,10 @@
 
   <%
   	String idx = request.getParameter("idx");
-    String Total = "total";
-	Connection conn = null;                       
+    Connection conn = null;                       
 	String sql;
-	if(idx.equals(Total)){
-		sql="select * from jsontest";
+	if(idx.equals("0")){
+		sql="select * from jsontest order by branch,leaf";
 	}else{
 		sql="select * from jsontest where idx = '" + idx + "';";
 	}
