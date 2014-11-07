@@ -9,9 +9,8 @@
     
 </head>
 <body>
-    
     <textarea cols="80" id="contents" name="contents" rows="10"></textarea>
-    <script type="text/javascript">
+	<script type="text/javascript">
    	CKEDITOR.replace('contents');
     </script>
     

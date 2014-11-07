@@ -4,16 +4,11 @@
   <%@ page import = "java.sql.*" %>                   
 
   <%
-  	String idx = request.getParameter("idx");
-    String Total = "total";
 	Connection conn = null;                       
 	String sql;
-	if(idx.equals(Total)){
-		sql="select * from jsontest";
-	}else{
-		sql="select * from jsontest where idx = '" + idx + "';";
-	}
-    try{
+	sql="select * from jsontest order by branch,leaf";
+    
+	try{
     String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                                                    
     String pw = "wjstks25@";                                               
@@ -30,7 +25,10 @@
     	obj.put("content",rs.getString(3));
 		obj.put("branch",rs.getInt(4));
 		obj.put("leaf",rs.getInt(5));
+		obj.put("branch_num",rs.getInt(6));
+		obj.put("leaf_num",rs.getInt(7));
     	itemList.add(obj);
+
     }
 	
     out.print(itemList);
