@@ -7,16 +7,47 @@
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css"/>
 
-<!-- include plugin -->
+<script type="text/javascript">
 
-<!-- initialize checkboxTree plugin -->
 
-<!--
+function login(form){
 
--->
+    if(checking(form)==true)
+    {
+        document.login.submit();
+    }
+    else
+    {
+    }
+}
+
+function checking(form){ 
+
+    if (form.user_id.value == "") 
+    { 
+        alert ("아이디를 입력해주세요"); 
+        form.user_id.focus(); 
+        return false; 
+    }     
+
+
+    if (form.pw.value == "") 
+    { 
+        alert ("비밀번호를 입력해주세요"); 
+        form.pw.focus(); 
+        return false; 
+    }       
+ 
+
+    return true;
+} 
+
+
+</script> 
+
 </head>    
 <body>
-<form action="sessionLogin.jsp" method="post">
+<form name="loginForm"action="sessionLogin.jsp" method="post">
     <ul>
 
         <li><div class="user_id"> 아이디 <input type="text" name="user_id"> </div>
@@ -24,8 +55,8 @@
 
     </ul>
 	
-	<input type="submit" value="로그인" /> 
-	<input type="button" value="회원가입" href="http://www.flagwiki.co.kr/Join"/> 
+	<input type="button" value="로그인" onClick="login(loginForm)"/> 
+	<input type="button" value="회원가입" onClick="location.href='http://www.flagwiki.co.kr/Join'"/> 
 </form>    
     
 </body>    

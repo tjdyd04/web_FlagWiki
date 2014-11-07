@@ -5,40 +5,88 @@
 <!-- include jQuery and jQueryUI libraries -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css"/>
 
-<!-- include plugin -->
-
-<!-- initialize checkboxTree plugin -->
-
-
-<!--
 <script type="text/javascript">
+
+
+function submitDB(form){
+
+    if(checking(form)==true)
+    {
+        document.memberForm.submit();
+    }
+    else
+    {
+    }
+}
+
+function checking(form){ 
+
+    if (form.email.value == "") 
+    { 
+        alert ("이메일을 입력해주세요"); 
+        form.email.focus(); 
+        return false; 
+    }     
+
+
+    if (form.user_id.value == "") 
+    { 
+        alert ("아이디를 입력해주세요"); 
+        form.user_id.focus(); 
+        return false; 
+    }       
+                    
+    if(!form.pw.value) { 
+        alert("비밀번호를 입력해주세요"); 
+        form.pw.focus(); 
+        return (false); 
+    } 
+
+    if(!form.re_pw.value) { 
+        alert("비밀번호확인을 입력하세요."); 
+        form.re_pw.focus(); 
+        return (false); 
+    } 
+
+    if(form.pw.value!=form.re_pw.value) { 
+        alert("비밀번호가 일치하지 않습니다."); 
+        form.re_pw.focus(); 
+        return (false); 
+    } 
+
+    return true;
+} 
+
+
 </script>
 
--->
 
 </head>    
 <body>
-<form action="connectDB.jsp" method="post">
+<form name="memberForm" action="connectDB.jsp" method="post">
 
     <ul>
 
-        <li><div class="email">  이메일 <input type="text" name="email"> 
+        <li><div class="email">  이메일 <input type="text" name="email"/> 
             <select name="email_domain">
                     <option value="naver"> naver.com </option>
                     <option value="nate"> nate.com </option>
                     <option value="daum"> daum.net </option>
-            </select> </div>
-        <li><div class="user_id"> 아이디 <input type="text" name="user_id"> </div>
-        <li><div class="pw"> 비밀번호 <input type="text" name="pw"> </div>
-        <li><div class="re_pw"> 비밀번호 재확인 <input type="text" name="re_pw"> </div>
+            </select> 
+
+            <input type="button" value="이메일중복체크" onClick=></div>
+        <li><div class="user_id"> 아이디 <input type="text" name="user_id"/> </div>
+        <li><div class="pw"> 비밀번호 <input type="password" name="pw"/> </div>
+        <li><div class="re_pw"> 비밀번호 재확인 <input type="password" name="re_pw"/>  </div>
 
 
         
     </ul>
 
-<input type="submit" value="가입완료" /> 
+    <input type="button" value="가입완료" onClick="javacript:submitDB(memberForm)"/> 
+
+    <input type="reset" value="재입력" />
 </form>    
     
 </body>    

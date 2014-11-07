@@ -25,6 +25,7 @@
 
 // <form action="delete_do.jsp" method="post">
 <table border="1" cellspacing="0">
+<th> 회원목록 </th>
 <tr>
 <td>Email</td>
 <td>user_id</td>

@@ -18,29 +18,29 @@ try{
 
 	Statement stmt = conn.createStatement();
 
-	String sql = "INSERT INTO member(email,user_id,pw) VALUES('"
+	
+	String insertSQL = "INSERT INTO member(email,user_id,pw) VALUES('"
 	+email
 	+"','"
 	+user_id
 	+"','"
 	+pw+"')";
 
+
 /*
 	stmt.setString(1,email);
 	stmt.setString(2,user_id);
 	stmt.setString(3,pw);
 */
-	stmt.executeUpdate(sql);
+	stmt.executeUpdate(insertSQL);
 
 	stmt.close();
 	conn.close();
-
 
 	response.sendRedirect("member_list.jsp");
 
 }catch(Exception e){ 	
 	out.println(e);
 }
-
 
 %>
