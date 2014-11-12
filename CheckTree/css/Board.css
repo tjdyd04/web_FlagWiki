@@ -1,0 +1,19 @@
+#tree{
+	width:300px;
+	margin:5px;
+	float:left;
+}
+#right{
+	width:680px;
+	margin:5px;
+	padding-left:20px;
+	float:left;
+}
+
+input.form-control{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+input.btn.btn-default{
+	margin-top:5px;
+}

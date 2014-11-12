@@ -1,44 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8"/>
-<!-- include jQuery and jQueryUI libraries -->
-<style>
-#tree{
-	width:300px;
-	margin:5px;
-	float:left;
-}
-#right{
-	width:680px;
-	height:900px;
-	margin-top:5px;
-	margin-left:10px;
-	border:1px solid #cccccc;
-	padding-left:20px;
-	float:left;
-	overflow-y:auto;
-}
-</style>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-<!-- include plugin -->
-<script type="text/javascript" src="minified/jquery.tree.min.js"></script>
-<link rel="stylesheet" type="text/css" href="minified/jquery.tree.min.css" />
-
-<!-- initialize checkboxTree plugin -->
-<script type="text/javascript">
-    //<!--
-    $(document).ready(function() {
+   $(document).ready(function() {
 		$.getJSON('jsontest.jsp',function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
 			if(entry.branch==0){
 				html += '<ul>';
-				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.branch +'>';
+				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
 			}
 			if(entry.branch!=0 && entry.leaf==0){
 				leaf_num = entry.leaf_num;
@@ -57,8 +24,6 @@
 				}
 			}
 		});	
-
-
 		html += '</ul>';
 		$('#tree').html(html);
        	$('#tree').tree({
@@ -76,7 +41,7 @@
             },
             select: function(event, element) {
                jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
-               $.get('Testpage.jsp',
+               $.get('jsBoard.jsp',
                      {idx: $('#idx'+jidx).val()},
                      function(data){
                         $('#right').html(data);
@@ -86,15 +51,4 @@
             
         	});
   		});
-	
-	});          
-
-
-//-->
-</script>
-</head>    
-<body>
-	<div id="tree"></div>    
-	<div id="right"></div>
-</body>    
-</html>    
+	});

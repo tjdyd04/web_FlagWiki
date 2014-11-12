@@ -5,77 +5,17 @@
 <!-- include jQuery and jQueryUI libraries -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css"/>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <!-- include plugin -->
 <script type="text/javascript" src="minified/jquery.tree.min.js"></script>
 <link rel="stylesheet" type="text/css" href="minified/jquery.tree.min.css" />
-
+<link rel="stylesheet" type="text/css" href="css/Board.css"/>
+<script type="text/javascript" src="Tree.js"></script>
 <!-- initialize checkboxTree plugin -->
-<script type="text/javascript">
-    //<!--
-    $(document).ready(function() {
-		$.getJSON('jsontest.jsp',function(data){
-		var html = '';
-		var leaf_num;
-        $.each(data, function(entryIndex, entry) {
-			if(entry.branch==0){
-				html += '<ul>';
-				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
-			}
-			if(entry.branch!=0 && entry.leaf==0){
-				leaf_num = entry.leaf_num;
-				html += '<ul>';
-				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
-				if(leaf_num !=0){
-					html += '<ul>';
-				}else{
-					html += '</ul>';
-				}
-			}
-			if(entry.branch!=0 && entry.leaf!=0){
-				html += '<li><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
-				if(entry.leaf == leaf_num){
-					html += '</ul></ul>';
-				}
-			}
-		});	
-
-
-		html += '</ul>';
-		$('#tree').html(html);
-       	$('#tree').tree({
-            collapseUiIcon: 'ui-icon-plus',
-            expandUiIcon: 'ui-icon-minus',             
-            onCheck: {
-                node: 'expand',
-                ancestors: 'checkIfFull',
-                ancestors: 'uncheck',
-                descendants: 'check' 
-            },
-            onUncheck: {
-                node: 'collapse',
-                
-            },
-            select: function(event, element) {
-               jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
-               $.get('jsBoard.jsp',
-                     {idx: $('#idx'+jidx).val()},
-                     function(data){
-                        $('#bottom').html(data);
-          		     });
-                    
-            	}
-            
-        	});
-  		});
-	});          
-  
-//-->
-</script>
 </head>    
 <body>
-<div id="tree"></div>    
-<div id="bottom"></div>    
+<div id="tree"></div>
+<div id="right"></div>    
 </body>    
 </html>    

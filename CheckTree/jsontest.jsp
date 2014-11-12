@@ -33,8 +33,12 @@
 	
     out.print(itemList);
     out.flush();
-    }catch(Exception e){                                                    // 예외가 발생하면 예외 상황을 처리한다.
-     e.printStackTrace();
+	rs.close();
+	stmt.close();
+	conn.close();
+    }catch(SQLException e){// 예외가 발생하면 예외 상황을 처리한다.
+		e.printStackTrace();
 	}
+	
 
   %>
