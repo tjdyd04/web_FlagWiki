@@ -31,7 +31,7 @@
 			pstmt.setString(4, ip);
 			pstmt.executeUpdate();
 	
-			response.sendRedirect("boardList.jsp");
+			response.sendRedirect("boardResult.jsp");
 		} else if ("M".equals(mode)) {
 			pstmt = conn.prepareStatement(
 				"UPDATE BOARD SET SUBJECT = ?, WRITER = ?, CONTENTS = ?, IP = ?, MOD_DATE = NOW() "+
@@ -51,9 +51,9 @@
 			pstmt.executeUpdate();
 			
 			response.sendRedirect(
-				"boardList.jsp?pageNum="+pageNum+"&searchType="+searchType+"&searchText="+searchText);
+				"boardResult.jsp?pageNum="+pageNum+"&searchType="+searchType+"&searchText="+searchText);
 		} else {
-			response.sendRedirect("boardList.jsp");
+			response.sendRedirect("boardResult.jsp");
 		}
 
 	} catch (Exception e) {

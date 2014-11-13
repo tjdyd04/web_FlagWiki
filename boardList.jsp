@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*,java.net.URLEncoder; " %>
+<%@ page import="java.sql.*" %>
 <%
 	// 사용할 객체 초기화
 	Connection conn = null;
@@ -8,8 +8,6 @@
 	int pageNumTemp = 1;
 	int listCount = 10;
 	int pagePerBlock = 10;
-	int count = 0;
-	
 	String whereSQL = "";
 	// 파라미터
 	String pageNum = request.getParameter("pageNum");
@@ -44,7 +42,6 @@
 			"jdbc:mysql://127.0.0.1:3306/stone", "root", "1234");
 		// 게시물의 총 수를 얻는 쿼리 실행
 		pstmt = conn.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM BOARD" + whereSQL);
-			
 		if (!"".equals(whereSQL)) {
 			if ("ALL".equals(searchType)) {
 				pstmt.setString(1, searchTextUTF8);
@@ -76,73 +73,50 @@
 			pstmt.setInt(1, listCount * (pageNumTemp-1));
 			pstmt.setInt(2, listCount);
 		}
-		
 		rs = pstmt.executeQuery();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-<title>게시판 목록</title>
+<title>Main page</title>
 <style type="text/css">
 	* {font-size: 9pt;}
-	p {width: 1050px; text-align: right;}
+	p {width: 600px; text-align: right;}
 	table thead tr th {background-color: gray;}
+	#Center{
+		text-align : center;
+	}
 	#Search{
 		height : 30px;
 		border: 1px solid #cfcfcf;
 	}
 	#Main_Search{
+		margin-bottom: 180px;
 		text-align: center;
 	}
 	#Main_Login{
-		margin-left : 800px;
+		margin-bottom: 300px;
+		margin-left : 1100px;
 	}
-	#Search_Top{
-		margin-left: 300px;
-		margin-right: 300px;
+	#link{
+		font-size: 50px;
+		font-weight: bold;
+		font-family: "맑은고딕";
+		color = "#8041D9";
+		link = "#8041D9";
+		alink = "#8041D9";
+		vlink = "#8041D9";
+		style = text-decoration:none;
+		text-decoration: none;
 	}
-	#Search_Middle{
-		margin-left: 250px;
-		margin-right: 150px;
-	}
-	#line{
-		border-bottom:1px solid #D5D5D5;
-		border-top:1px solid #D5D5D5;
-		}
 	h1{
-		font-size : 25px;
-		font-weigh : bold;
-	}
-	
-	h2{
-		color : #6B66FF;
-		font-weigh : bold;
-	}
-		
-	.link{
-		font-size: 40px;
+		font-size: 50px;
 		font-weight: bold;
 		font-family: "Comic Sans MS";
-		style = text-decoration:none;
-		text-decoration: none;
+		color : #24A6BD;
+		text-align : center;
 	}
-	
-	.link:link {color:#24A6BD;}
-	.link:visited{color:#24A6BD;}	
-	
-	.links{
-		font-size: 22px;
-		font-weight: bold;
-		font-family: "궁서체";
-		style = text-decoration:none;
-		text-decoration: none;
-	}
-	
-	.links:link {color:#4374D9;}
-	.links:visited{color:#4374D9;}
-	
-	
 	.button {
    border: 1px solid #858f94;
    background: #ffffff;
@@ -178,7 +152,7 @@
    background-image: -ms-linear-gradient(top, #b4bdc2 0%, #9ba3a8 100%);
    color: #fff;
    }
-    .Lbutton {
+   .Lbutton {
    border: 1px solid #707375;
    background: #ffffff;
    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ffffff));
@@ -214,7 +188,6 @@
    color: #fff;
    }
 </style>
-</style>
 <script type="text/javascript">
 	function goUrl(url) {
 		location.href=url;
@@ -227,160 +200,43 @@
 			form.searchText.focus();
 			return false;
 		}
+		else
+			location.href=boardResult.jsp;
 		return true;
 	}
 </script>
 </head>
 <body>
 	
-	<div id=Search_Top>
-		</br>
-		<span id="Main_Login">
+	<br/><span id="Main_Login">
 		<input class="Lbutton" type="button" value="로그인">
-		<input class="Lbutton" type="button" value="회원가입">
+		<input class="Lbutton"type="button" value="회원가입">
 		</span>
-
-		<form name="searchForm" action="boardResult.jsp" method="get" onsubmit="return searchCheck();" >
-			<a class="link" href = "boardList.jsp" >FlagWiki</a>&nbsp;&nbsp;&nbsp;	
-			<select style="height:34px;" name="searchType">
+	
+	<form name="searchForm" action="boardResult.jsp" method="get" onsubmit="return searchCheck();" >	
+	<div id="Center"><img src="//lh3.ggpht.com/UJd2DDqEYGe-Z1co3kQl0Erc20K5rv0tWJiBvaZbWdoh2qOltYCOu4_rglQijnPJ-ypXLeosuFP-orUTVyk8u3a4-1BNdYVmjjskGv9I=s660" >	
+	</div>
+		<a id="link" href=# /><h1>Flag Wiki</h1>
+		<div id="Main_Search">
+		<select style="height:34px;" name="searchType">
 			<option value="ALL" selected="selected">전체검색</option>
 			<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print("selected=\"selected\""); %>>제목</option>
 			<option value="WRITER" <%if ("WRITER".equals(searchType)) out.print("selected=\"selected\""); %>>작성자</option>
-			<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print("selected=\"selected\""); %>>내용</option>	
-			</select>
-			<input type="text" id="Search" size="50" name="searchText" value="<%=searchTextUTF8%>" />
-			<input class="button" type="submit" value="검색" />
-		</form>
-	</div>
-	
-	<br/><br/><hr></hr>
-	
-<div id=Search_Middle>
-			<h1> We've found <%=totalCount%> results</h1>
-			<br/><br/>
-			<table cellspacing="0" cellpadding="25" summary="검색결과">
+			<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print("selected=\"selected\""); %>>내용</option>
+		</select>
+		<input type="text" id="Search" size="50" name="searchText" value="<%=searchTextUTF8%>" />
+		<input class="button" type="submit" value="검색">
+		</div>
+	</form>
 		
-		<colgroup>
-			<col width="130" />
-			<col width="800" />
-			<col width="200" />
-			<col width="200" />
-			<col width="110" />
-		</colgroup>
-		
-		<tbody>
-			<%
-			if (totalCount == 0) {
-			%>
-			<tr>
-				<td align="center" colspan="5">등록된 게시물이 없습니다.</td>
-			</tr>
-			<%
-			} else {
-				int i = 0;
-				while (rs.next()) {
-					i++;
-			%>
-			<tr>
-				<td id="line" align="left"> <%=totalCount - i + 1 - (pageNumTemp - 1) * listCount %></td>
-				<td id="line" ><a class="links" href="boardView.jsp?num=<%=rs.getInt("NUM")%>&amp;pageNum=<%=pageNumTemp%>&amp;searchType=<%=searchType%>&amp;searchText=<%=searchText%>"><%=rs.getString("SUBJECT") %></a></td>
-				<td id="line" align="left"><h2>ID</h2> <%=rs.getString("WRITER") %></td>
-				<td id="line" align="left"><h2>등록일시</h2> <%=rs.getString("REG_DATE").substring(0, 10) %></td>
-				<td id="line" align="left"><h2>조회수</h2> <%=rs.getInt("HIT") %></td>
-			</tr>
-			
-			<%
-				}
-			}
-			%>
-		</tbody>
-		<tfoot>
-		
-
-			<tr>
-				<td align="center" colspan="5">
-				
-				
-				<%
-				searchText = URLEncoder.encode(searchText,"ISO-8859-1");
-				// 페이지 네비게이터
-				if(totalCount > 0) {
-					int totalNumOfPage = (totalCount % listCount == 0) ? 
-							totalCount / listCount :
-							totalCount / listCount + 1;
-					
-					int totalNumOfBlock = (totalNumOfPage % pagePerBlock == 0) ?
-							totalNumOfPage / pagePerBlock :
-							totalNumOfPage / pagePerBlock + 1;
-					
-					int currentBlock = (pageNumTemp % pagePerBlock == 0) ? 
-							pageNumTemp / pagePerBlock :
-							pageNumTemp / pagePerBlock + 1;
-					
-					int startPage = (currentBlock - 1) * pagePerBlock + 1;
-					int endPage = startPage + pagePerBlock - 1;
-					
-					if(endPage > totalNumOfPage)
-						endPage = totalNumOfPage;
-					boolean isNext = false;
-					boolean isPrev = false;
-					if(currentBlock < totalNumOfBlock)
-						isNext = true;
-					if(currentBlock > 1)
-						isPrev = true;
-					if(totalNumOfBlock == 1){
-						isNext = false;
-						isPrev = false;
-					}
-					StringBuffer sb = new StringBuffer();
-					if(pageNumTemp > 1){
-						
-						sb.append("<a href=\"").append("boardResult.jsp?pageNum=1&amp;searchType="+searchType+"&amp;searchText="+searchText );
-						sb.append("\" title=\"<<\"><<</a>&nbsp;");
-					}
-					if (isPrev) {
-						int goPrevPage = startPage - pagePerBlock;			
-						sb.append("&nbsp;&nbsp;<a href=\"").append("boardResult.jsp?pageNum="+goPrevPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
-						sb.append("\" title=\"<\"><</a>");
-					} else {}
-		
-					for (int i = startPage; i <= endPage; i++) {
-						if (i == pageNumTemp) {
-							sb.append("<a href=\"#\"><strong>").append(i).append("</strong></a>&nbsp;&nbsp;");
-						} else {
-							sb.append("<a href=\"").append("boardResult.jsp?pageNum="+i+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
-							sb.append("\" title=\""+i+"\">").append(i).append("</a>&nbsp;&nbsp;");
-						}
-					}
-					if (isNext) {
-						int goNextPage = startPage + pagePerBlock;
-	
-						sb.append("<a href=\"").append("boardResult.jsp?pageNum="+goNextPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
-						sb.append("\" title=\">\">></a>");
-					} else {}
-					if(totalNumOfPage > pageNumTemp){
-						sb.append("&nbsp;&nbsp;<a href=\"").append("boardResult.jsp?pageNum="+totalNumOfPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
-						sb.append("\" title=\">>\">>></a>");
-					}
-					out.print(sb.toString());
-				}
-				%>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-	<p id="write">
-		<input class="Lbutton" type="button" value="목록" onclick="goUrl('boardResult.jsp');" />
-		<input class="Lbutton" type="button" value="글쓰기" onclick="goUrl('boardWriteForm.jsp');" />
-	</p>
 </body>
 </html>
 <%
-	} catch (SQLException e) {
+	} catch (Exception e) {
 		e.printStackTrace();
 	} finally {
-		if (rs != null) try{rs.close();} catch(SQLException e){} 
-		if (pstmt != null) try{pstmt.close();} catch(SQLException e){} 
-		if (conn != null) try{conn.close();} catch(SQLException e){}
+		if (rs != null) rs.close();
+		if (pstmt != null) pstmt.close();
+		if (conn != null) conn.close();
 	}
 %>
