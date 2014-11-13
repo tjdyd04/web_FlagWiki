@@ -9,38 +9,48 @@ String email = request.getParameter("email");
 String user_id = request.getParameter("user_id");
 String pw = request.getParameter("pw");
 
+Connection conn=null;
+Statement stmt = null;
+//PreparedStatement pstmt=null;
 
 try{
                                           
 //
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
-
-	Statement stmt = conn.createStatement();
+	conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
 
 	
-	String insertSQL = "INSERT INTO member(email,user_id,pw) VALUES('"
+	String sql = "INSERT INTO member(email,user_id,pw) VALUES('"
 	+email
 	+"','"
 	+user_id
 	+"','"
 	+pw+"')";
 
-
+	stmt = conn.createStatement();
+	int successSQL = stmt.executeUpdate(sql);
 /*
-	stmt.setString(1,email);
-	stmt.setString(2,user_id);
-	stmt.setString(3,pw);
+	pstmt = conn.prepareStatement("INSERT INTO member(email,user_id,pw) VALUES(?,?,?)");
+
+	pstmt.setString(1,email);
+	pstmt.setString(2,user_id);
+	pstmt.setString(3,pw);
+
+	int successSQL = pstmt.executeUpdate();
 */
-	stmt.executeUpdate(insertSQL);
-
-	stmt.close();
-	conn.close();
-
-	response.sendRedirect("member_list.jsp");
+	if(successSQL==1)
+	{
+		response.sendRedirect("http://www.flagwiki.co.kr/Login");
+	}
 
 }catch(Exception e){ 	
 	out.println(e);
+}finally{
+
+	stmt.close();
+	//pstmt.close();
+	conn.close();
+
 }
 
 %>

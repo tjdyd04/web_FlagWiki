@@ -2,22 +2,15 @@
 <html>
 <head>
 <meta charset="utf-8"/>
-<!-- include jQuery and jQueryUI libraries -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css"/>
 
 <script type="text/javascript">
 
 
 function login(form){
 
-    if(checking(form)==true)
+    if(checking(form))
     {
-        document.login.submit();
-    }
-    else
-    {
+        document.loginForm.submit();
     }
 }
 
@@ -48,15 +41,32 @@ function checking(form){
 </head>    
 <body>
 <form name="loginForm"action="sessionLogin.jsp" method="post">
-    <ul>
 
-        <li><div class="user_id"> 아이디 <input type="text" name="user_id"> </div>
-        <li><div class="passward"> 비밀번호 <input type="text" name="pw"> </div>
+    <table align="center">
+        <tr>
+            <td colspan="3"><hr noshade="noshade" /></td>
+        </tr>
+        <tr>
+            <td> 아이디 : </td>
+            <td> <input type="text" name="user_id"> </td>
 
-    </ul>
-	
-	<input type="button" value="로그인" onClick="login(loginForm)"/> 
-	<input type="button" value="회원가입" onClick="location.href='http://www.flagwiki.co.kr/Join'"/> 
+        </tr>
+        <tr>
+            <td> 비밀번호 : </td>
+            <td> <input type="password" name="pw"> </td>
+
+        </tr>
+        <tr>
+            <td colspan="3"><hr noshade="noshade" /></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="로그인" onClick="login(loginForm)"/></td>
+    	   <td><input type="button" value="회원가입" onClick="location.href='http://www.flagwiki.co.kr/Join'"/></td>
+        </tr>
+
+    </table>
+            
 </form>    
     
 </body>    
