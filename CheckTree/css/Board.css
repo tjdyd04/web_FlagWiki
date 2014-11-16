@@ -1,7 +1,7 @@
 #tree{
 	width:300px;
-	margin:5px;
-	float:left;
+	margin:3px;
+	
 }
 #right{
 	width:680px;
@@ -9,11 +9,23 @@
 	padding-left:20px;
 	float:left;
 }
-
-input.form-control{
-	margin-top:5px;
-	margin-bottom:5px;
+#tree button{
+	border-color:#fff;
 }
-input.btn.btn-default{
+#input{
+	margin-top:10px;
+	margin-left:5px;
+	margin-bottom:10px;
+}
+#left{
+	padding:0px;
+	margin:0px;
+	width:300px;
+	float:left;
+}
+#AddTree{
+	margin-top:5px;
+}
+#AddButton{
 	margin-top:5px;
 }

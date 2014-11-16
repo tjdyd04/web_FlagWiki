@@ -1,0 +1,15 @@
+#tree{
+	width:300px;
+	margin:5px;
+	float:left;
+}
+#right{
+	width:680px;
+	height:900px;
+	margin-top:5px;
+	margin-left:10px;
+	border:1px solid #cccccc;
+	padding-left:20px;
+	float:left;
+	overflow-y:auto;
+}

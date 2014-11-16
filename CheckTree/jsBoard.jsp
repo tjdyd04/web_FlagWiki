@@ -9,8 +9,8 @@
 <title>게시판 등록</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="/ckeditor_full/ckeditor.js"></script>
-<script type="text/javascript" src="Button.js"></script>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<script src="Button.js"></script>
 <script type="text/javascript">
 var idx="<%=idx%>";
 $(document).ready(function(){
@@ -28,9 +28,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<form id="AjaxForm">
 <div id="board"></div>
 <input type="button" id="button" value="적용" class="btn btn-default">
-</form>
 </body>
 </html>
