@@ -22,11 +22,11 @@
 	pstmt.executeUpdate();
 	
     
-	}catch(Exception e){                                                    // 예외가 발생하면 예외 상황을 처리한다.
+	}catch(Exception e){                               // 예외가 발생하면 예외 상황을 처리한다.
      e.printStackTrace();
 	}finally{
-		if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
-		if(conn != null) try{conn.close();}catch(SQLException sqle){}   
+		if(pstmt != null) try{pstmt.close();}catch(SQLException e){}
+		if(conn != null) try{conn.close();}catch(SQLException e){}   
 	}
 
   %>
