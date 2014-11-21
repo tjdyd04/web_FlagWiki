@@ -1,4 +1,4 @@
-정서영 tjdyd04 /jsy
-김진용 realdragon619 /jyk
-박민수 parkminsusu /pms
+정서영 tjdyd04 /jsy branch
+김진용 realdragon619,jyk619 /jyk branch
+박민수 parkminsusu /pms branch 
 
