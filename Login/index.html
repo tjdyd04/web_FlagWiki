@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+
+<script type="text/javascript">
+
+
+function login(form){
+
+    if(checking(form))
+    {
+        document.loginForm.submit();
+    }
+}
+
+function checking(form){ 
+
+    if (form.user_id.value == "") 
+    { 
+        alert ("아이디를 입력해주세요"); 
+        form.user_id.focus(); 
+        return false; 
+    }     
+
+
+    if (form.pw.value == "") 
+    { 
+        alert ("비밀번호를 입력해주세요"); 
+        form.pw.focus(); 
+        return false; 
+    }       
+ 
+
+    return true;
+} 
+
+
+</script> 
+
+</head>    
+<body>
+<form name="loginForm"action="sessionLogin.jsp" method="post">
+
+    <table align="center">
+        <tr>
+            <td colspan="3"><hr noshade="noshade" /></td>
+        </tr>
+        <tr>
+            <td> 아이디 : </td>
+            <td> <input type="text" name="user_id"> </td>
+
+        </tr>
+        <tr>
+            <td> 비밀번호 : </td>
+            <td> <input type="password" name="pw"> </td>
+
+        </tr>
+        <tr>
+            <td colspan="3"><hr noshade="noshade" /></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="로그인" onClick="login(loginForm)"/></td>
+    	   <td><input type="button" value="회원가입" onClick="location.href='http://www.flagwiki.co.kr/Join'"/></td>
+        </tr>
+
+    </table>
+            
+</form>    
+    
+</body>    
+</html>    
