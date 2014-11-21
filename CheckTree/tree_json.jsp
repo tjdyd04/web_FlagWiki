@@ -4,32 +4,24 @@
   <%@ page import = "java.sql.*" %>                   
 
   <%
-  	String idx = request.getParameter("idx");
-	String type = request.getParameter("type");
 
-	String sql="";
-
-	if(type.equals("-1")){
-		sql="select * from jsontest where idx = '" + idx + "'";
-	}else if(type.equals("0")){
-		sql="select * from jsontest order by branch,leaf";
-	}else{
-		sql="select * from jsontest where branch ='" + type  + "'";
-	}	
-    Connection conn = null;                       
-	ResultSet rs = null;
-	Statement stmt = null;
-
-    try{
     String url = "jdbc:mysql://localhost:3306/jykim";        
-    String id = "jykim";                                                  
+    String id = "jykim";                                                    
     String pw = "wjstks25@";                                               
-    Class.forName("com.mysql.jdbc.Driver");
+	Connection conn = null;                       
+	Statement stmt = null;
+	ResultSet rs = null;
+	
+	String sql;
+
+	sql="select * from jsontest order by branch,leaf";
     
-	conn=DriverManager.getConnection(url,id,pw);
+	try{
+
+    Class.forName("com.mysql.jdbc.Driver");
+	conn = DriverManager.getConnection(url,id,pw);
     stmt = conn.createStatement();
 	rs = stmt.executeQuery(sql);
-
 	JSONArray itemList = new JSONArray();
     while(rs.next()){    
     	JSONObject obj=new JSONObject();
@@ -38,16 +30,21 @@
     	obj.put("content",rs.getString(3));
 		obj.put("branch",rs.getInt(4));
 		obj.put("leaf",rs.getInt(5));
+		obj.put("branch_num",rs.getInt(6));
+		obj.put("leaf_num",rs.getInt(7));
     	itemList.add(obj);
+
     }
 	
     out.print(itemList);
     out.flush();
-    }catch(SQLException e){                                   
-    	 e.printStackTrace();
+    }catch(SQLException e){
+		e.printStackTrace();
 	}finally{
 		if(conn != null) try{conn.close();} catch(SQLException e){}
 		if(stmt != null) try{stmt.close();} catch(SQLException e){}
 		if(rs != null) try{rs.close();} catch(SQLException e){}
 	}
+	
+
   %>

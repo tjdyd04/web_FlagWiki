@@ -1,5 +1,5 @@
    $(document).ready(function() {
-		$.getJSON('jsontest.jsp',function(data){
+		$.getJSON('tree_json.jsp',function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
@@ -27,9 +27,7 @@
 			}
 		});	
 		html += '</ul>';
-
 		$('#tree').html(html);
-
        	$('#tree').tree({
             collapseUiIcon: 'ui-icon-plus',
             expandUiIcon: 'ui-icon-minus',             
@@ -45,7 +43,7 @@
             },
             select: function(event, element) {
                jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
-               $.post('jsBoard.jsp',
+               $.post('js_board.jsp',
                      {idx: $('#idx'+jidx).val()},
                      function(data){
                         $('#right').html(data);
@@ -63,7 +61,6 @@
 				html += '<input type="button" class="btn btn-default" id="AddButton" value="추가">';
 				$('#input').html(html).toggle();
 				$('#AddButton').bind("click",function(){
-
 					var result = confirm("추가?");
 					if(result){
 						var AddTitle = $('#AddTree').prop('value');

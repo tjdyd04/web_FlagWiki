@@ -5,17 +5,8 @@
 
   <%
   	String idx = request.getParameter("idx");
-	String type = request.getParameter("type");
 
-	String sql="";
-
-	if(type.equals("-1")){
-		sql="select * from jsontest where idx = '" + idx + "'";
-	}else if(type.equals("0")){
-		sql="select * from jsontest order by branch,leaf";
-	}else{
-		sql="select * from jsontest where branch ='" + type  + "'";
-	}	
+	String sql="select * from jsontest where idx ='" + idx  + "'";
     Connection conn = null;                       
 	ResultSet rs = null;
 	Statement stmt = null;
