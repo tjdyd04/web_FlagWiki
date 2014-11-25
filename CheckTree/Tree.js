@@ -1,5 +1,5 @@
    $(document).ready(function() {
-		$.getJSON('tree_json.jsp',function(data){
+		$.getJSON('tree_json.jsp',{tree:tree},function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
@@ -65,8 +65,8 @@
 					if(result){
 						var AddTitle = $('#AddTree').prop('value');
 						$.post("insert.jsp",
-						{idx:idx,title:AddTitle,num:num,type:type,Bnum:Bnum});
-						location.href="Board.html";
+						{idx:idx,title:AddTitle,num:num,type:type,Bnum:Bnum,tree:tree});
+						location.href='board.jsp?tree=' + tree;
 					}else{
 						//no
 					}

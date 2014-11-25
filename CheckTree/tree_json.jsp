@@ -5,6 +5,11 @@
 
   <%
 
+	String tree = request.getParameter("tree");
+	if(tree != null){
+		tree = new String(request.getParameter("tree").getBytes("iso-8859-1"), "UTF-8");//get 방식의경우
+	}
+	String user = (String)session.getAttribute("user");
     String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                                                    
     String pw = "wjstks25@";                                               
@@ -12,9 +17,7 @@
 	Statement stmt = null;
 	ResultSet rs = null;
 	
-	String sql;
-
-	sql="select * from jsontest order by branch,leaf";
+	String sql="select * from jsontest WHERE user='" + user + "'AND tree='" + tree + "' order by branch,leaf";
     
 	try{
 

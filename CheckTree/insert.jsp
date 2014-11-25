@@ -4,10 +4,13 @@
 <%@ page import = "java.sql.*" %>                   
 <%
 	request.setCharacterEncoding("utf-8");
+	String user = (String)session.getAttribute("user");
 	int num=0;
 	try{
 		num = Integer.parseInt(request.getParameter("num"));
 	}catch(Exception e){}
+
+	String tree = request.getParameter("tree");
 	String Bnum = request.getParameter("Bnum");
 	String idx = request.getParameter("idx");
 	String type = request.getParameter("type");
@@ -22,9 +25,9 @@
 	String insert_sql="";
 	String update_sql="";
 	if(Bnum == null){
-		insert_sql = "INSERT INTO jsontest(title,branch) VALUES('" + title + "','" + num + "')"; 
+		insert_sql = "INSERT INTO jsontest(title,branch,user,tree) VALUES('" + title + "','" + num + "','" + user + "','" + tree + "')"; 
 	}else{
-		insert_sql = "INSERT INTO jsontest(title,branch,leaf) VALUES('" + title + "','" + Bnum + "', '" + num + "')"; 
+		insert_sql = "INSERT INTO jsontest(title,branch,leaf,user,tree) VALUES('" + title + "','" + Bnum + "','" + num + "','" + user + "','" + tree + "')"; 
 	}
 
 	if(Bnum == null){
