@@ -100,7 +100,7 @@ function checkValue(target, cmt, lmin, lmax){
   <table width="500" border="0" bgcolor="#B6C1D6" height="39" align="center">
     <tr> 
       <td bgcolor="#ffffff" width="40%" align="center"> 
-        <input type="text" name="user_id" value="<%=user_id%>" onFocus="this.value=''" maxlength="16" size="16" class="oneborder">
+        <input type="text" name="user_id" value="<%=user_id%>" onFocus="this.value=''" maxlength="16" size="30" class="oneborder">
         <input type="button" value="중복확인" onClick="doCheck()" class="oneborder">
       </td>
     </tr>
