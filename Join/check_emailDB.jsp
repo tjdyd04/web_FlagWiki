@@ -53,7 +53,7 @@ function checkEnd(){
 function doCheck(){
     var form = document.id_check;
 
-    if(!checkValue(form.email, '이메일', 4, 20)){
+    if(!checkValue(form.email, '이메일', 4, 30)){
         return;
     }
 
@@ -94,13 +94,13 @@ function checkValue(target, cmt, lmin, lmax){
   <input type="hidden" name="check_count" value="<%=check_count%>">
   <table width="300" border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
-      <td>이메일 주소를 입력해주세요.</td>
+      <td> 이메일 주소를 입력해주세요.</td>
     </tr>
   </table>
   <table width="500" border="0" bgcolor="#B6C1D6" height="39" align="center">
     <tr> 
       <td bgcolor="#ffffff" width="40%" align="center"> 
-        <input type="text" name="email" value="<%=email%>" onFocus="this.value=''" maxlength="20" size="16" class="oneborder">
+        <input type="text" name="email" value="<%=email%>" onFocus="this.value=''" maxlength="20" size="30" class="oneborder">
         <input type="button" value="중복확인" onClick="doCheck()" class="oneborder">
       </td>
     </tr>
