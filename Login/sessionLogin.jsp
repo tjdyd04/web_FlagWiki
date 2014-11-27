@@ -30,7 +30,7 @@ try{
 			//성공시 세션연결.
 			session.setAttribute("user_id",user_id);
 			session.setMaxInactiveInterval(60*60); //60분유지
-			response.sendRedirect("http://www.flagwiki.co.kr/Search/RepositorieList.jsp"); //로그인성공시 이동
+			response.sendRedirect("http://www.flagwiki.co.kr/Search/Repositores.jsp"); //로그인성공시 이동
 
 			if(request.getProtocol().equals("HTTP/1.0")){ 
 				response.setHeader("Pragma","no-cache"); 

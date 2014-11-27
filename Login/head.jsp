@@ -8,14 +8,6 @@
       <link href="./stylesheet/reset.css" rel="stylesheet" type="text/css">
       <link href="./stylesheet/head.css" rel="stylesheet" type="text/css">  
 
-    <%!
-    boolean isset(String str)
-    {
-      if(str == null) return false;
-      if(str.equals("")) return false;
-      return true;
-    }
-    %>
 </head>
 <body>
     <div id="layer_fixed">

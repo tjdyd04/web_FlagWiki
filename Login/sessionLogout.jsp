@@ -1,4 +1,4 @@
-<%@ page language ="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language ="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <% 
 	session.invalidate(); 
@@ -6,5 +6,5 @@
 
 <script>
 alert("로그아웃 되었습니다.");
-location.href="index.html"; //로그인페이지로 이동
+location.href="http://www.flagwiki.co.kr/Search/boardList.jsp"; //메인페이지 이동
 </script>
