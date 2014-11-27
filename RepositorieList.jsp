@@ -47,7 +47,7 @@
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(
-			"jdbc:mysql://127.0.0.1:3306/stone", "root", "1234");
+				"jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
 		// 게시물의 총 수를 얻는 쿼리 실행
 		pstmt = conn.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM BOARD" + whereSQL);
 			
@@ -120,7 +120,7 @@
 	#aside{
 		width:25%;
 		height: 1000px;
-		margin-top : 70px;
+		margin-top : 20px;
 		margin-left : 50px;
 		float : right;
 	}
@@ -154,6 +154,23 @@
 	.links:link {color:#4374D9;}
 	.links:visited{color:#4374D9;}
 	
+	.Rlinks{
+		font-size: 20px;
+		font-weight: bold;
+		font-family: "Comic Sans MS";
+		style = text-decoration:none;
+		text-decoration: none;
+		padding-bottom: 60px;
+	}
+	
+	.Rlinks:link {color:#353535;}
+	.Rlinks:visited{color:#353535;}
+	
+	.Repositorie{
+		font-size:18px;
+		font-family: "Comic Sans MS"; 
+		text-align:"center";
+	}
 	
 	.button {
    border: 1px solid #858f94;
@@ -270,7 +287,7 @@
 <div id=Search_Middle align="right">
 	<div id="aside" >
 
-		<table  border="1"cellpadding="10" summary="내가 참여란 레파지토리">
+		<table style="margin-top:80px "border="1" cellpadding="10" summary="My Repositories">
 	
 		<colgroup>
 			<col width="300" />
@@ -285,8 +302,10 @@
 			} else {
 				int i = 0;
 			%>
+				<br/><br/><br/><br/><br/>
+			
 			<tr>
-				<td>Repositories you contribute to</td>
+				<td class="Repositorie">My Repositories</td>
 			</tr>
 			<% 
 				while (rs.next()) {
@@ -381,7 +400,7 @@
 	</br></br></br>
 
 	
-	<table  border="1"cellpadding="10" summary="내 레파지토리">
+	<table  border="1"cellpadding="10" summary="내가 참여한레파지토리">
 			<colgroup>
 			<col width="300" />
 		</colgroup>
@@ -396,7 +415,7 @@
 				int i = 0;
 			%>
 			<tr>
-				<td>My Repositories</td>
+				<td class="Repositorie">Contribute to</td>
 			</tr>
 			<% 
 				while (rs.next()) {
@@ -649,7 +668,7 @@
 	</table>
 	</div>
 	<p id="write">
-		<input class="Lbutton" type="button" value="글쓰기" onclick="goUrl('boardWriteForm.jsp');" />
+		<input class=button type="button" value="+ 레파지토리 추가하기" onclick="goUrl('NewRepositorie.jsp');"/>
 	</p>
 </body>
 </html>

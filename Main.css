@@ -1,0 +1,37 @@
+@CHARSET "EUC-KR";
+	* {font-size: 9pt;}
+	p {width: 600px; text-align: right;}
+	table thead tr th {background-color: gray;}
+	#Center{
+		text-align : center;
+	}
+	#Search{
+		height : 30px;
+		border: 1px solid #cfcfcf;
+	}
+	#Main_Search{
+		margin-bottom: 180px;
+		text-align: center;
+	}
+	#Main_Login{
+		margin-bottom: 300px;
+		margin-left : 1100px;
+	}
+	#link{
+		font-size: 50px;
+		font-weight: bold;
+		font-family: "¸¼Àº°íµñ";
+		color = "#8041D9";
+		link = "#8041D9";
+		alink = "#8041D9";
+		vlink = "#8041D9";
+		style = text-decoration:none;
+		text-decoration: none;
+	}
+	h1{
+		font-size: 50px;
+		font-weight: bold;
+		font-family: "Comic Sans MS";
+		color : #24A6BD;
+		text-align : center;
+	}

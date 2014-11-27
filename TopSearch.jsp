@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*,java.net.URLEncoder; " %>
 <%
+
+
 	// 사용할 객체 초기화
-	String url = "jdbc:mysql://localhost:3306/jykim";        
-    	String id = "jykim";                                                    
-   	String pw = "wjstks25@"; 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	int pageNumTemp = 1;
-	int listCount = 10;
-	int pagePerBlock = 10;
+	int listCount = 5;
+	int pagePerBlock = 5;
+	int count = 0;
+	
+	
+	
+	
 	String whereSQL = "";
 	// 파라미터
 	String pageNum = request.getParameter("pageNum");
@@ -41,10 +45,11 @@
 	}
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
-		conn = DriverManager.getConnection(url,id,pw);
-		
+		conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
 		// 게시물의 총 수를 얻는 쿼리 실행
 		pstmt = conn.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM boards" + whereSQL);
+			
 		if (!"".equals(whereSQL)) {
 			if ("ALL".equals(searchType)) {
 				pstmt.setString(1, searchTextUTF8);
@@ -58,7 +63,7 @@
 		rs.next();
 		int totalCount = rs.getInt("TOTAL");
 		// 게시물 목록을 얻는 쿼리 실행
-		pstmt = conn.prepareStatement("SELECT NUM, SUBJECT, WRITER, REG_DATE, HIT FROM boards "+whereSQL+" ORDER BY NUM DESC LIMIT ?, ?");
+		pstmt = conn.prepareStatement("SELECT NUM, SUBJECT, WRITER, REG_DATE, HIT,MOD_DATE FROM boards "+whereSQL+" ORDER BY NUM DESC LIMIT ?, ?");
 		if (!"".equals(whereSQL)) {
 			// 전체검색일시
 			if ("ALL".equals(searchType)) {
@@ -76,17 +81,15 @@
 			pstmt.setInt(1, listCount * (pageNumTemp-1));
 			pstmt.setInt(2, listCount);
 		}
+		
 		rs = pstmt.executeQuery();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-<title>Main page</title>
-meta name="viewport" content="width=device-width, initial-scale=1.0">
- <!-- 부트스트랩 -->
- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="Main.css" rel="stylesheet" type="text/css">
+<link href="wikiflag.css rel="stylesheet" type="text/css">
+
 <script type="text/javascript">
 	function goUrl(url) {
 		location.href=url;
@@ -99,43 +102,42 @@ meta name="viewport" content="width=device-width, initial-scale=1.0">
 			form.searchText.focus();
 			return false;
 		}
-		else
-			location.href=boardResult.jsp;
 		return true;
 	}
 </script>
 </head>
 <body>
+	
+	<div id=Search_Top>
+		</br>
+		<span id="Main_Login">
+		<input class="btn btn-default" type="button" value="로그인">
+		<input class="btn btn-default" type="button" value="회원가입">
+		</span>
 
-	<!-- 머리 폼 -->
-	<jsp:include page="../Head_Navigation/head.jsp" flush="false" />
-	
-	<br/>
-	
-	<form name="searchForm" action="boardResult.jsp" method="get" onsubmit="return searchCheck();" >	
-	<div id="Center"><img src="//lh3.ggpht.com/UJd2DDqEYGe-Z1co3kQl0Erc20K5rv0tWJiBvaZbWdoh2qOltYCOu4_rglQijnPJ-ypXLeosuFP-orUTVyk8u3a4-1BNdYVmjjskGv9I=s660" >	
-	</div>
-		<a id="link" href=# /><h1>Flag Wiki</h1>
-		<div id="Main_Search">
-		<select style="height:31px;" name="searchType">
+		<form name="searchForm" action="boardResult.jsp" method="get" onsubmit="return searchCheck();" >
+			<a class="link" href ="#" >FlagWiki</a>&nbsp;&nbsp;&nbsp;	
+			<select style="height:31px;" name="searchType">
 			<option value="ALL" selected="selected">전체검색</option>
 			<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print("selected=\"selected\""); %>>제목</option>
 			<option value="WRITER" <%if ("WRITER".equals(searchType)) out.print("selected=\"selected\""); %>>작성자</option>
-			<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print("selected=\"selected\""); %>>내용</option>
-		</select>
-		<input type="text" id="Search" size="50" name="searchText" value="<%=searchTextUTF8%>" />
-		<input class="btn btn-default" type="button" value="검색">		
-		</div>
-	</form>
-		
+			<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print("selected=\"selected\""); %>>내용</option>	
+			</select>
+			<input type="text" id="Search" size="50" name="searchText" value="<%=searchTextUTF8%>" />
+			<input class="btn btn-default" type="submit" value="검색" />
+			
+		</form>
+	</div>
+	<br/><br/><hr></hr>
 </body>
-</html>
 <%
-	} catch (Exception e) {
+	} catch (SQLException e) {
 		e.printStackTrace();
 	} finally {
-		if (rs != null) rs.close();
-		if (pstmt != null) pstmt.close();
-		if (conn != null) conn.close();
+		if (rs != null) try{rs.close();} catch(SQLException e){} 
+		if (pstmt != null) try{pstmt.close();} catch(SQLException e){} 
+		if (conn != null) try{conn.close();} catch(SQLException e){}
 	}
 %>
+	
+	
