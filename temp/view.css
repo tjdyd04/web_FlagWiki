@@ -1,0 +1,16 @@
+#list{
+	width:380px;
+}
+.panel-body{
+	padding-bottom:0px;
+}
+.glyphicon{
+	padding-right:5px;
+}
+#add_rep{
+	margin-top:0px;
+	float:right;
+}
+#p_header H3{
+	display:inline;
+}
