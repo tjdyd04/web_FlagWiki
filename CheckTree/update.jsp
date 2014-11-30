@@ -13,10 +13,8 @@
     String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                                                    
     String pw = "wjstks25@";                                               
-
-    Class.forName("com.mysql.jdbc.Driver");                       // 데이터베이스와 연동하기 위해 DriverManager에 등록한다.
-
-    String sql="UPDATE jsontest SET title ='" + title + "',content = '" + data + "' WHERE idx = '" + idx + "';";
+    Class.forName("com.mysql.jdbc.Driver");   
+    String sql="UPDATE mainboard SET title ='" + title + "',content = '" + data + "' WHERE idx = '" + idx + "';";
 	conn = DriverManager.getConnection(url,id,pw);
 	pstmt = conn.prepareStatement(sql);	
 	pstmt.executeUpdate();

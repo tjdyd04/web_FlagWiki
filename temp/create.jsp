@@ -17,8 +17,9 @@
 <script src="create.js"></script>
 </head>
 <body>
+
 <fieldset class="well the-fieldset">
-<form class="form">
+<form action="add.jsp" method="post">
 <legend><H1>저장소추가</H1></legend>
 <div id="info">
 <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> USER <%=user%> </a>
@@ -29,10 +30,10 @@
 <H3>검색노출여부</H3>
 <div class="btn-group" data-toggle="buttons">
 <label class="btn btn-primary active">
-<input type="radio" name="options" id="option1" value="public" autocomplete="off" checked> YES
+<input type="radio" name="view" id="option1" value="1" autocomplete="off" checked> YES
 </label>
 <label class="btn btn-primary">
-<input type="radio" name="options" id="option2" value="private" autocomplete="off"> NO
+<input type="radio" name="view" id="option2" value="0" autocomplete="off"> NO
 </label>
 </div>
 <legend class="small"></legend>
@@ -43,13 +44,7 @@
 </div>
 <legend class="small"></legend>
 <H3>게임 카테고리</H3>
-<select class="selectpicker" data-live-search="true">
-<option value="one">One</option>
-<option value="two">Two</option>
-<option value="three">Three</option>
-<option value="four">Four</option>
-<option value="five">Five</option>
-</select>
+<div id="cate_area"></div>
 <div id="last">
 <input type="submit" id="rep_submit" class="btn btn-success" value="저장소만들기">
 <div>

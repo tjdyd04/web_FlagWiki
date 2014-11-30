@@ -1,7 +1,6 @@
 #tree{
 	width:300px;
 	margin:5px;
-	float:left;
 }
 #right{
 	width:680px;
@@ -9,7 +8,58 @@
 	margin-top:5px;
 	margin-left:10px;
 	border:1px solid #cccccc;
-	padding-left:20px;
+	padding:20px;
+	padding-top:10px;
 	float:left;
 	overflow-y:auto;
+	position:relative;
+}
+#left{
+	padding:0px;
+	margin:0px;
+	width:300px;
+	float:left;
+}
+#option{
+	width:300px;
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+#option > ul > li > a > div{
+	margin-left:100px;
+}
+
+#option > ul > li > a{
+	background-color:#eee;
+	color:#777;
+}
+
+#option > ul > li > a.option_list{
+	width:300px;
+	border-bottom:3px solid #333;
+	margin-top:10px;
+	border-top:1px solid #eee;
+	background-color:#ffffff;
+	border-right:3px solid #333;
+}
+
+#option > ul > li > a.option_list:hover{
+	color:#222;
+	background-color:#eee;
+}
+#right p{
+	margin-top:10px;
+}
+#right p span.label{
+	font-size:14px;
+}
+#req_button{
+	position:absolute;
+	width:200px;
+	top:10px;
+	left:470px;
+}
+#req_button button{
+	margin-left:10px;
 }

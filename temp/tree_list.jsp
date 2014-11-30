@@ -27,7 +27,7 @@
 <%
 	while(rs.next()){
 %>
-	<div><a href="../CheckTree/index.jsp?tree=<%=rs.getString(2)%>"><%=rs.getString(2)%></a></div>
+	<div><a href="../CheckTree/index.jsp?tree=<%=rs.getString(2)%>&b_user=<%=rs.getString(3)%>"><%=rs.getString(2)%></a></div>
 <%
 	}
 %>	

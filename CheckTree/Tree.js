@@ -1,5 +1,5 @@
    $(document).ready(function() {
-		$.getJSON('tree_json.jsp',{tree:tree},function(data){
+		$.getJSON('tree_json.jsp',{tree:tree,b_user:b_user},function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
@@ -54,9 +54,9 @@
 				var type = $(this).attr('Btype');
 				var num = $(this).attr('num');
 				var Bnum = $(this).attr('Bnum');
-				var title =$(this).attr('Btitle');
+				var Btitle =$(this).attr('Btitle');
 				var idx = $(this).attr('idx');
-				html = '<span>선택항목 : ' + title + '</span>';
+				html = '<span>선택항목 : ' + Btitle + '</span>';
 				html += '<input type="text" class="form-control" placeholder="추가하기" id="AddTree">'; 
 				html += '<input type="button" class="btn btn-default" id="AddButton" value="추가">';
 				$('#input').html(html).toggle();
@@ -65,8 +65,10 @@
 					if(result){
 						var AddTitle = $('#AddTree').prop('value');
 						$.post("insert.jsp",
-						{idx:idx,title:AddTitle,num:num,type:type,Bnum:Bnum,tree:tree});
-						location.href='board.jsp?tree=' + tree;
+						{idx:idx,AddTitle:AddTitle,num:num,type:type,Bnum:Bnum,tree:tree,b_user:b_user},function(){
+						var para = encodeURIComponent(tree);
+						window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+						});
 					}else{
 						//no
 					}

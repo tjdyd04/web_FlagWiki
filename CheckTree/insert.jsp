@@ -14,44 +14,59 @@
 	String Bnum = request.getParameter("Bnum");
 	String idx = request.getParameter("idx");
 	String type = request.getParameter("type");
-	String title = request.getParameter("title"); 
-	
+	String title = request.getParameter("AddTitle"); 
+	String b_user = request.getParameter("b_user");
 	num++;
-    
 	String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                               
     String pw = "wjstks25@";
-
 	String insert_sql="";
 	String update_sql="";
+
 	if(Bnum == null){
-		insert_sql = "INSERT INTO jsontest(title,branch,user,tree) VALUES('" + title + "','" + num + "','" + user + "','" + tree + "')"; 
+		insert_sql = "INSERT INTO mainboard(title,branch,user,tree) VALUES(?,?,?,?)"; 
 	}else{
-		insert_sql = "INSERT INTO jsontest(title,branch,leaf,user,tree) VALUES('" + title + "','" + Bnum + "','" + num + "','" + user + "','" + tree + "')"; 
+		insert_sql = "INSERT INTO mainboard(title,branch,leaf,user,tree) VALUES(?,?,?,?,?)"; 
 	}
 
 	if(Bnum == null){
-		update_sql = "UPDATE jsontest SET branch_num ='" + num + "' WHERE idx = '" + idx + "'";
+		update_sql = "UPDATE mainboard SET branch_num =? WHERE idx =?";
 	}else{
-		update_sql = "UPDATE jsontest SET leaf_num ='" + num + "' WHERE idx = '" + idx + "'";
+		update_sql = "UPDATE mainboard SET leaf_num =? WHERE idx =?";
 	}
 
-	Connection conn = null;
-	Statement stmt = null;
+	Connection conn = null;                   
+	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
 	try{
 	    Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(url,id,pw);
-		stmt = conn.createStatement();
-		stmt.executeUpdate(insert_sql);
-		stmt.executeUpdate(update_sql);	
+		pstmt = conn.prepareStatement(insert_sql);
+		if(Bnum == null){
+			pstmt.setString(1,title);
+			pstmt.setInt(2,num);
+			pstmt.setString(3,b_user);
+			pstmt.setString(4,tree);
+		}else{
+			pstmt.setString(1,title);
+			pstmt.setString(2,Bnum);
+			pstmt.setInt(3,num);
+			pstmt.setString(4,b_user);
+			pstmt.setString(5,tree);
+		}
+		pstmt.executeUpdate();
+		pstmt.close();
 
+		pstmt = conn.prepareStatement(update_sql);
+		pstmt.setInt(1,num);
+		pstmt.setString(2,idx);
+		pstmt.executeUpdate();
 	}catch(SQLException e){
 
 	}finally{
 		if(conn != null) try{conn.close();}catch(SQLException e){}   
-		if(stmt != null) try{stmt.close();}catch(SQLException e){}   
+		if(pstmt != null) try{pstmt.close();}catch(SQLException e){}   
 		if(rs != null) try{rs.close();}catch(SQLException e){}   
 	}
 %>	

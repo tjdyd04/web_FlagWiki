@@ -2,8 +2,9 @@
 <%
 	String idx = request.getParameter("idx");
 	String type = request.getParameter("type");
+	String tree = request.getParameter("tree");
 %>
-<DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8"/>
@@ -12,7 +13,9 @@
 $(document).ready(function(){
 	var idx="<%=idx%>";
 	var type="<%=type%>";
-    $.getJSON('json.jsp',{idx:idx,type:type}, function(data) {
+	var tree="<%=tree%>";
+    
+	$.post('json.jsp',{idx:idx,type:type,tree:tree}, function(data) {
         var html = '';
         $.each(data, function(entryIndex, entry) {
             html += '<div>';
@@ -32,7 +35,7 @@ $(document).ready(function(){
             html += '</div>';
         });
         $('#main').html(html);
-    });
+    },"json");
 });
 </script>
 </head>

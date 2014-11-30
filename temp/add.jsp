@@ -3,11 +3,13 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	String user = (String)session.getAttribute("user");
-	String title = request.getParameter("title");
+	String title = request.getParameter("rep");
 	String view = request.getParameter("view");
+	String desc = request.getParameter("desc");
+	String cate = request.getParameter("cate");
 	String idx="";
 	String sql = "INSERT INTO mainboard(title,user,tree)" + " values(?,?,?)";  
-	String tree_sql = "INSERT INTO tree(title,user,view)" + " values(?,?,?)";  
+	String tree_sql = "INSERT INTO tree(title,user,view,description,category)" + " values(?,?,?,?,?)";  
 	String select_idx_sql = "SELECT * FROM tree WHERE title=? AND user=?";
 	String tree_member_sql ="INSERT INTO tree_member(idx_tree,user)" + " values(?,?)";
 
@@ -32,6 +34,8 @@
 	pstmt.setString(1,title);
 	pstmt.setString(2,user);
 	pstmt.setString(3,view);
+	pstmt.setString(4,desc);
+	pstmt.setString(5,cate);
 	pstmt.executeUpdate();
 	pstmt.close();
 	
@@ -58,5 +62,6 @@
 
 %>
 <script>
-location.href="list.jsp"
+alert('추가하였습니다');
+window.location="view.jsp";
 </script>

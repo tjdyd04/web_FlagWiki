@@ -6,6 +6,7 @@
   <%
 
 	String tree = request.getParameter("tree");
+	String b_user = request.getParameter("b_user");
 	if(tree != null){
 		tree = new String(request.getParameter("tree").getBytes("iso-8859-1"), "UTF-8");//get 방식의경우
 	}
@@ -17,7 +18,7 @@
 	Statement stmt = null;
 	ResultSet rs = null;
 	
-	String sql="select * from jsontest WHERE user='" + user + "'AND tree='" + tree + "' order by branch,leaf";
+	String sql="select * from mainboard WHERE user='" + b_user + "' AND tree='" + tree + "' order by branch,leaf";
     
 	try{
 
@@ -48,6 +49,4 @@
 		if(stmt != null) try{stmt.close();} catch(SQLException e){}
 		if(rs != null) try{rs.close();} catch(SQLException e){}
 	}
-	
-
   %>
