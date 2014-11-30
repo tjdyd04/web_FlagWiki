@@ -4,24 +4,32 @@
   <%@ page import = "java.sql.*" %>                   
 	
   <%
+
   	String idx = request.getParameter("idx");
 	String title = request.getParameter("title");
 	String data = request.getParameter("data");
+	String user = (String)session.getAttribute("user");
+	
+	String url = "jdbc:mysql://localhost:3306/jykim";        
+    String id = "jykim";                                      
+    String pw = "wjstks25@";                                               
+    String sql="UPDATE mainboard SET title=? , content=? WHERE idx=?";
+	
 	Connection conn = null;                       
 	PreparedStatement pstmt = null;
+   
 	try{
-    String url = "jdbc:mysql://localhost:3306/jykim";        
-    String id = "jykim";                                                    
-    String pw = "wjstks25@";                                               
     Class.forName("com.mysql.jdbc.Driver");   
-    String sql="UPDATE mainboard SET title ='" + title + "',content = '" + data + "' WHERE idx = '" + idx + "';";
 	conn = DriverManager.getConnection(url,id,pw);
 	pstmt = conn.prepareStatement(sql);	
+	pstmt.setString(1,title);
+	pstmt.setString(2,data);
+	pstmt.setString(3,idx);
 	pstmt.executeUpdate();
 	
     
-	}catch(Exception e){                               // 예외가 발생하면 예외 상황을 처리한다.
-     e.printStackTrace();
+	}catch(Exception e){
+//
 	}finally{
 		if(pstmt != null) try{pstmt.close();}catch(SQLException e){}
 		if(conn != null) try{conn.close();}catch(SQLException e){}   

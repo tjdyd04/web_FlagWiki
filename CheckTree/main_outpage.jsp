@@ -3,6 +3,7 @@
 	String idx = request.getParameter("idx");
 	String type = request.getParameter("type");
 	String tree = request.getParameter("tree");
+	String b_user = request.getParameter("b_user");
 %>
 <!DOCTYPE html>
 <html>
@@ -14,8 +15,9 @@ $(document).ready(function(){
 	var idx="<%=idx%>";
 	var type="<%=type%>";
 	var tree="<%=tree%>";
+	var b_user="<%=b_user%>";
     
-	$.post('json.jsp',{idx:idx,type:type,tree:tree}, function(data) {
+	$.post('json.jsp',{idx:idx,type:type,tree:tree,b_user:b_user}, function(data) {
         var html = '';
         $.each(data, function(entryIndex, entry) {
             html += '<div>';

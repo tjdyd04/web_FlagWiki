@@ -23,10 +23,13 @@
 	String insert_sql="";
 	String update_sql="";
 
+	String flag="";
+	String flag_sql = "SELECT * FROM tree WHERE title=? AND user=?";
+
 	if(Bnum == null){
-		insert_sql = "INSERT INTO mainboard(title,branch,user,tree) VALUES(?,?,?,?)"; 
+		insert_sql = "INSERT INTO mainboard(title,branch,user,tree,flag) VALUES(?,?,?,?,?)"; 
 	}else{
-		insert_sql = "INSERT INTO mainboard(title,branch,leaf,user,tree) VALUES(?,?,?,?,?)"; 
+		insert_sql = "INSERT INTO mainboard(title,branch,leaf,user,tree,flag) VALUES(?,?,?,?,?,?)"; 
 	}
 
 	if(Bnum == null){
@@ -42,18 +45,31 @@
 	try{
 	    Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(url,id,pw);
+		pstmt = conn.prepareStatement(flag_sql);
+		pstmt.setString(1,tree);
+		pstmt.setString(2,b_user);
+		rs = pstmt.executeQuery();
+	
+		while(rs.next()){
+			flag=rs.getString(8);
+		}
+		pstmt.close();
+		rs.close();
+		
 		pstmt = conn.prepareStatement(insert_sql);
 		if(Bnum == null){
 			pstmt.setString(1,title);
 			pstmt.setInt(2,num);
 			pstmt.setString(3,b_user);
 			pstmt.setString(4,tree);
+			pstmt.setString(5,flag);
 		}else{
 			pstmt.setString(1,title);
 			pstmt.setString(2,Bnum);
 			pstmt.setInt(3,num);
 			pstmt.setString(4,b_user);
 			pstmt.setString(5,tree);
+			pstmt.setString(6,flag);
 		}
 		pstmt.executeUpdate();
 		pstmt.close();

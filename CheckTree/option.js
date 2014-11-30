@@ -8,8 +8,9 @@ $(document).ready(function(){
 	list +='<ul class="nav nav-pills nav-statcked" id="option_ul">';
 	list +='<li class="active"><a href="#" id="mem_list" class="option_list">참여중인인원</a></li>';
 	list +='<li class="active"><a href="#" id="add_mem" class="option_list">협력자추가</a></li>';
-	list +='<li class="active"><a href="#" class="option_list">도움요청하기</a></li>';
-	list +='<li class="active"><a href="#" class="option_list">깃발항목</a></li>';
+	list +='<li class="active"><a href="#" class="option_list">요청항목</a></li>';
+	list +='<li class="active"><a href="#" id="save" class="option_list">깃발저장</a></li>';
+	list +='<li class="active"><a href="#" class="option_list">깃발목록</a></li>'
 	list +='</ul>'
 	$('#option').html(html);
 	$('#option').append(list);
@@ -38,6 +39,19 @@ $(document).ready(function(){
 		$('#add_button').click(function(){
 			var val=$('#inputError1').val();
 			$.post('add_mem.jsp',{tree:tree,b_user:b_user,val:val});		
+		});
+	});
+	$('#save').click(function(){
+		var html='';
+		html += '<div id="flag_save" class="form-group has-success">';
+		html += '<label class="control-label" for="inputSuccess1">깃발을 저장합니다</label>';
+		html += '<input type="text" class="form-control" placeholder="깃발이름을 적어주세요" id="flag_text">'; 
+		html += '<input type="button" class="btn btn-success" id="save_button" value="저장">';
+		html += '</div>'
+		$('#right').html(html);
+		$('#save_button').click(function(){
+			var val=$('#flag_text').val();
+			$.post('save_flag.jsp',{tree:tree,b_user:b_user,val:val});
 		});
 	});
 });
