@@ -42,55 +42,44 @@
 <%-- 자바스크립트 영역 시작 --%>
 <script language="JavaScript">
 
+         //메일 유효성체크
+function checkValue(em) { 
+  
+  var email = em;  
+  var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a- z]{2})?)$/;   
+  
+  if(regex.test(email) === false) {  
+      alert("잘못된 이메일 형식입니다.");  
+      return false;  
+  } else {  
+      return true;  
+  }  
+
+}
+
 function checkEnd(){
-    var form = document.id_check;
+    var form = document.email_check;
 
     opener.memberForm.email.value = form.email.value;
     opener.memberForm.user_id.focus();
-	window.close();
+  	window.close();
 }
 
 function doCheck(){
-    var form = document.id_check;
+    var form = document.email_check;
 
-    if(!checkValue(form.email, '이메일', 4, 30)){
+    if(!checkValue(form.email){
         return;
     }
 
     form.submit();
 }
 
-function checkValue(target, cmt, lmin, lmax){
-    var Alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var Digit = '1234567890';
-    var astr = Alpha+Digit;
-    var i;
-    var tValue = target.value;
-
-    // 길이제한. 일단은 길이제한없음. 주석처리.
-    // if(tValue.length < lmin || tValue.length > lmax){
-    //     if(lmin==lmax) alert(cmt+'는'+lmin+'Byte이어야 합니다.');
-    //     else alert(cmt+'는'+lmin+'~'+lmax+'Byte 이내로 입력하셔야 합니다.');
-    //     target.focus();
-    //     return false;
-    // }
-
-    if(astr.length > 1){
-        for (i=0; i<tValue.length; i++){
-            if(astr.indexOf(tValue.substring(i,i+1))<0){
-                alert(cmt+'에 허용할 수 없는 문자가 입력되었습니다.');
-                target.focus();
-                return false;
-            }
-        }
-    }
-    return true;
-}
 
 </script>
 
 
-<form name="id_check" method="post" action="check_emailDB.jsp">
+<form name="email_check" method="post" action="check_emailDB.jsp">
   <input type="hidden" name="check_count" value="<%=check_count%>">
   <table width="300" border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
@@ -100,7 +89,7 @@ function checkValue(target, cmt, lmin, lmax){
   <table width="500" border="0" bgcolor="#B6C1D6" height="39" align="center">
     <tr> 
       <td bgcolor="#ffffff" width="40%" align="center"> 
-        <input type="text" name="email" value="<%=email%>" onFocus="this.value=''" maxlength="20" size="30" class="oneborder">
+        <input type="text" name="email" value="<%=email%>" onFocus="this.value=''" maxlength="20" size="30" class="oneborder" height="30">
         <input type="button" value="중복확인" onClick="doCheck()" class="oneborder">
       </td>
     </tr>

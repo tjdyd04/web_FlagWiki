@@ -22,7 +22,7 @@ try{
 //	if(session_id==null||session_id.equals("")){ // session이 없을경우
 
 		stmt = conn.createStatement();
-		String sql =  "select * from member where user_id= '" + user_id+"' and pw = '" + pw + "'";
+		String sql =  "select * from member where user_id= '" + user_id+"' and pw = MD5('" + pw + "')";
 
 		rs = stmt.executeQuery(sql);  
 		if(rs.first())

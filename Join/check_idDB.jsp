@@ -67,13 +67,6 @@ function checkValue(target, cmt, lmin, lmax){
     var i;
     var tValue = target.value;
 
-    // 길이제한. 일단은 길이제한없음. 주석처리.
-    // if(tValue.length < lmin || tValue.length > lmax){
-    //     if(lmin==lmax) alert(cmt+'는'+lmin+'Byte이어야 합니다.');
-    //     else alert(cmt+'는'+lmin+'~'+lmax+'Byte 이내로 입력하셔야 합니다.');
-    //     target.focus();
-    //     return false;
-    // }
 
     if(astr.length > 1){
         for (i=0; i<tValue.length; i++){

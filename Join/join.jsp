@@ -152,7 +152,7 @@ function checkID()
         <label autocapitalize="off" autofocus="autofocus" data-autocheck-url="/signup_check/username" name="user[email]">Email Address</label></dt>
         <dd>
             <input autocapitalize="off" autofocus="autofocus" name="email" size="30" type="text"> <input type="button" value="이메일중복체크" onClick="javascript:checkEmail()">
-            <p class="note"> 이메일을 입력해주세요. </p>
+            <p class="note"> 이메일형식은 "-----@---.---" 로 입력해주세요.</p>
         </dd>
 
     </dl>

@@ -24,8 +24,8 @@ try{
 	+email
 	+"','"
 	+user_id
-	+"','"
-	+pw+"')";
+	+"',MD5('"
+	+pw+"'))";
 
 	stmt = conn.createStatement();
 	int successSQL = stmt.executeUpdate(sql);
