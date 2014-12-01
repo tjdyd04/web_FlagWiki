@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="org.json.simple.JSONObject"%>
+<%@ page import="org.json.simple.JSONArray"%>
 <%@ page import = "java.sql.*" %>                   
 <%
 	String user = (String)session.getAttribute("user");
-	String sql = "SELECT * FROM jsontest WHERE branch=? AND leaf=? AND user=?";  
+	String value = request.getParameter("value");
+	String sql = "SELECT tree.title,tree.user,tree.view,tree_member.rank FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree.user=?"; 
 	Connection conn = null;                   
 	ResultSet rs = null; 
 	PreparedStatement pstmt = null;
@@ -14,10 +17,7 @@
     Class.forName("com.mysql.jdbc.Driver");
 	conn=DriverManager.getConnection(url,id,pw);
 	pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1,"0");
-	pstmt.setString(2,"0");
-	pstmt.setString(3,user);
-
+	pstmt.setString(1,user);
 	rs = pstmt.executeQuery();
 	
 %>
@@ -38,7 +38,7 @@ $(document).ready(function(){
 <%
 	while(rs.next()){
 %>
-	<div><a href="../CheckTree/board.jsp?tree=<%=rs.getString(9)%>"><%=rs.getString(9)%></a></div>
+	<div><a href="../CheckTree/board.jsp?tree=<%=rs.getString(1)%>"><%=rs.getString(1)%></a></div>
 
 <%
 	}

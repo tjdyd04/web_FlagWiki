@@ -6,7 +6,7 @@
   <%
   	String idx = request.getParameter("idx");
 
-	String sql="select * from jsontest where idx ='" + idx  + "'";
+	String sql="select * from mainboard where idx ='" + idx  + "'";
     Connection conn = null;                       
 	ResultSet rs = null;
 	Statement stmt = null;

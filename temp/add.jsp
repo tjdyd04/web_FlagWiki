@@ -3,10 +3,19 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	String user = (String)session.getAttribute("user");
-	String title = request.getParameter("title");
-	String sql = "INSERT INTO jsontest(title,user,tree)" + " values(?,?,?)";  
+	String title = request.getParameter("rep");
+	String view = request.getParameter("view");
+	String desc = request.getParameter("desc");
+	String cate = request.getParameter("cate");
+	String idx="";
+	String sql = "INSERT INTO mainboard(title,user,tree)" + " values(?,?,?)";  
+	String tree_sql = "INSERT INTO tree(title,user,view,description,category)" + " values(?,?,?,?,?)";  
+	String select_idx_sql = "SELECT * FROM tree WHERE title=? AND user=?";
+	String tree_member_sql ="INSERT INTO tree_member(idx_tree,user)" + " values(?,?)";
+
 	Connection conn = null;                   
 	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
     String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                       
@@ -19,13 +28,40 @@
 	pstmt.setString(2,user);
 	pstmt.setString(3,title);
 	pstmt.executeUpdate();
+	pstmt.close();
+
+	pstmt = conn.prepareStatement(tree_sql);
+	pstmt.setString(1,title);
+	pstmt.setString(2,user);
+	pstmt.setString(3,view);
+	pstmt.setString(4,desc);
+	pstmt.setString(5,cate);
+	pstmt.executeUpdate();
+	pstmt.close();
+	
+	pstmt = conn.prepareStatement(select_idx_sql);
+	pstmt.setString(1,title);
+	pstmt.setString(2,user);
+	rs = pstmt.executeQuery();
+	while(rs.next()){
+		idx = rs.getString(1);
+	}
+	pstmt.close();
+
+	pstmt = conn.prepareStatement(tree_member_sql);
+	pstmt.setString(1,idx);
+	pstmt.setString(2,user);
+	pstmt.executeUpdate();
 	}catch(SQLException e){
 
 	}finally{
 		if(conn != null) try{conn.close();} catch(SQLException e){}
 		if(pstmt != null) try{pstmt.close();} catch(SQLException e){}
+		if(rs != null) try{rs.close();} catch(SQLException e){}
 	}
+
 %>
 <script>
-location.href="list.jsp"
+alert('추가하였습니다');
+window.location="view.jsp";
 </script>

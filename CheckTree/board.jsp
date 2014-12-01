@@ -5,7 +5,7 @@
 	if(tree != null){
 		tree = new String(request.getParameter("tree").getBytes("iso-8859-1"), "UTF-8");//get 방식의경우
 	}
-	
+	String b_user = request.getParameter("b_user");
 %>
 <!DOCTYPE html>
 <html>
@@ -14,22 +14,30 @@
 <!-- include jQuery and jQueryUI libraries -->
 <script>
 	var tree ="<%=tree%>";
+	var user ="<%=user%>";
+	var b_user="<%=b_user%>";
+	var jidx;
 </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<script type="text/javascript" src="minified/jquery.tree.min.js"></script>
+<script type="text/javascript" src="minified/bootstrap-switch.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <!-- include plugin -->
-<script type="text/javascript" src="minified/jquery.tree.min.js"></script>
 <link rel="stylesheet" type="text/css" href="minified/jquery.tree.min.css" />
 <link rel="stylesheet" type="text/css" href="css/Board.css"/>
+<link rel="stylesheet" type="text/css" href="css/bootstrap-switch.css"/>
 <script type="text/javascript" src="tree.js"></script>
+<script type="text/javascript" src="option.js"></script>
+
 <!-- initialize checkboxTree plugin -->
 </head>    
 <body>
 <div id="left">
 <div id="tree"></div>
 <div id="input"></div>
+<div id="option"></div>
 </div>
 <div id="right"></div>    
 </body>    

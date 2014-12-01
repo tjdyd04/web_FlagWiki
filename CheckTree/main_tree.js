@@ -1,5 +1,5 @@
     $(document).ready(function() {
-		$.getJSON('tree_json.jsp',function(data){
+		$.post('main_json.jsp',{tree:tree,b_user:b_user},function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
@@ -43,12 +43,12 @@
                jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
 
                type = $(element).find('span.daredevel-tree-label:first').attr('branch_idx');
-               $.get('main_outpage.jsp',
-                     {idx: $('#idx'+jidx).val(),type:type},
+               $.post('main_outpage.jsp',
+                     {idx: $('#idx'+jidx).val(),type:type,tree:tree,b_user:b_user},
                      function(data){
                         $('#right').html(data);
           		     });
             	}
         	});
-  		});
+  		},"json");
 	});	

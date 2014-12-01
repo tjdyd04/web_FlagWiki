@@ -1,13 +1,18 @@
 #tree{
 	width:300px;
-	margin:3px;
-	
+	margin:5px;
 }
 #right{
 	width:680px;
-	margin:5px;
-	padding-left:20px;
+	height:900px;
+	margin-top:5px;
+	margin-left:10px;
+	border:1px solid #cccccc;
+	padding:20px;
+	padding-top:10px;
 	float:left;
+	overflow-y:auto;
+	position:relative;
 }
 #tree button{
 	border-color:#fff;
@@ -29,3 +34,46 @@
 #AddButton{
 	margin-top:5px;
 }
+#option{
+	width:300px;
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+#option > ul > li > a > div{
+	margin-left:100px;
+}
+
+#option > ul > li > a{
+	background-color:#eee;
+	color:#777;
+}
+
+#option > ul > li > a.option_list{
+	width:300px;
+	border-bottom:3px solid #333;
+	margin-top:10px;
+	border-top:1px solid #eee;
+	background-color:#ffffff;
+	border-right:3px solid #333;
+}
+
+#option > ul > li > a.option_list:hover{
+	color:#222;
+	background-color:#eee;
+}
+#insert_mem{
+	margin-top:50px;
+	width:300px;
+}
+#add_button{
+	margin-top:10px;
+}
+#flag_save{
+	margin-top:50px;
+	width:300px;
+}
+#save_button{
+	margin-top:10px;
+}
+

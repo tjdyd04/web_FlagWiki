@@ -6,6 +6,7 @@
   <%
 
 	String tree = request.getParameter("tree");
+	String b_user = request.getParameter("b_user");
 	if(tree != null){
 		tree = new String(request.getParameter("tree").getBytes("iso-8859-1"), "UTF-8");//get 방식의경우
 	}
@@ -13,18 +14,33 @@
     String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                                                    
     String pw = "wjstks25@";                                               
-	Connection conn = null;                       
-	Statement stmt = null;
+	Connection conn = null;                   
+	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	
-	String sql="select * from jsontest WHERE user='" + user + "'AND tree='" + tree + "' order by branch,leaf";
+	String sql="SELECT * FROM mainboard WHERE user=? AND tree=? AND flag=? ORDER BY branch,leaf";
+	String flag="";
+	String flag_sql = "SELECT * FROM tree WHERE title=? AND user=?";
     
 	try{
 
     Class.forName("com.mysql.jdbc.Driver");
 	conn = DriverManager.getConnection(url,id,pw);
-    stmt = conn.createStatement();
-	rs = stmt.executeQuery(sql);
+	pstmt = conn.prepareStatement(flag_sql);
+	pstmt.setString(1,tree);
+	pstmt.setString(2,b_user);
+	rs = pstmt.executeQuery();
+	
+	while(rs.next()){
+		flag=rs.getString(8);
+	}
+	pstmt.close();
+	rs.close();
+
+	pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1,b_user);
+	pstmt.setString(2,tree);
+	pstmt.setString(3,flag);
+	rs = pstmt.executeQuery();
 	JSONArray itemList = new JSONArray();
     while(rs.next()){    
     	JSONObject obj=new JSONObject();
@@ -38,16 +54,13 @@
     	itemList.add(obj);
 
     }
-	
     out.print(itemList);
     out.flush();
     }catch(SQLException e){
 		e.printStackTrace();
 	}finally{
-		if(conn != null) try{conn.close();} catch(SQLException e){}
-		if(stmt != null) try{stmt.close();} catch(SQLException e){}
-		if(rs != null) try{rs.close();} catch(SQLException e){}
+		if(conn != null) try{conn.close();}catch(SQLException e){}   
+		if(pstmt != null) try{pstmt.close();}catch(SQLException e){}   
+		if(rs != null) try{rs.close();}catch(SQLException e){}   
 	}
-	
-
   %>
