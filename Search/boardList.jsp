@@ -126,7 +126,8 @@
 			<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print("selected=\"selected\""); %>>내용</option>
 		</select>
 		<input type="text" id="Search" size="50" name="searchText" value="<%=searchTextUTF8%>" />
-		<input class="btn btn-default" type="button" value="검색" onClick="javacript:searchCheck()">		
+		<input class="btn btn-default" type="submit" value="검색" />
+
 		</div>
 	</form>
 		

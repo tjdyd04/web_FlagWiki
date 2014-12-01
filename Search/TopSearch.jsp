@@ -111,11 +111,6 @@
 	<jsp:include page="../Head_Navigation/head.jsp" flush="false" />
 
 	<div id=Search_Top>
-		</br>
-		<span id="Main_Login">
-		<input class="btn btn-default" type="button" value="로그인">
-		<input class="btn btn-default" type="button" value="회원가입">
-		</span>
 
 		<form name="searchForm" action="boardResult.jsp" method="get" onsubmit="return searchCheck();" >
 			<a class="link" href ="#" >FlagWiki</a>&nbsp;&nbsp;&nbsp;	
