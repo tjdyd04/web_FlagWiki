@@ -5,14 +5,14 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	int pageNumTemp = 1;
+	int pageidxTemp = 1;
 	int listCount = 10;
 	int pagePerBlock = 10;
 	int count = 0;
 	
 	String whereSQL = "";
 	// 파라미터
-	String pageNum = request.getParameter("pageNum");
+	String pageidx = request.getParameter("pageidx");
 	String searchType = request.getParameter("searchType");
 	String searchText = request.getParameter("searchText");
 	// 파라미터 초기화
@@ -20,8 +20,8 @@
 		searchType = "";
 		searchText = "";
 	}
-	if (pageNum != null) {
-		pageNumTemp = Integer.parseInt(pageNum);
+	if (pageidx != null) {
+		pageidxTemp = Integer.parseInt(pageidx);
 	}
 	// 한글파라미터 처리
 	String searchTextUTF8 = new String(searchText.getBytes("ISO-8859-1"), "UTF-8");
@@ -29,13 +29,13 @@
 	// 검색어 쿼리문 생성
 	if (!"".equals(searchText)) {
 		if ("ALL".equals(searchType)) {
-			whereSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%') OR WRITER LIKE CONCAT('%',?,'%') OR CONTENTS LIKE CONCAT('%',?,'%') ";
-		} else if ("SUBJECT".equals(searchType)) {
-			whereSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%') ";
-		} else if ("WRITER".equals(searchType)) {
-			whereSQL = " WHERE WRITER LIKE CONCAT('%',?,'%') ";
-		} else if ("CONTENTS".equals(searchType)) {
-			whereSQL = " WHERE CONTENTS LIKE CONCAT('%',?,'%') ";
+			whereSQL = " WHERE title LIKE CONCAT('%',?,'%') OR user LIKE CONCAT('%',?,'%') OR description LIKE CONCAT('%',?,'%') ";
+		} else if ("title".equals(searchType)) {
+			whereSQL = " WHERE title LIKE CONCAT('%',?,'%') ";
+		} else if ("user".equals(searchType)) {
+			whereSQL = " WHERE user LIKE CONCAT('%',?,'%') ";
+		} else if ("description".equals(searchType)) {
+			whereSQL = " WHERE description LIKE CONCAT('%',?,'%') ";
 		}
 	}
 	try {
@@ -43,7 +43,7 @@
 		conn = DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
 		// 게시물의 총 수를 얻는 쿼리 실행
-		pstmt = conn.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM boards" + whereSQL);
+		pstmt = conn.prepareStatement("SELECT COUNT(idx) AS TOTAL FROM tree" + whereSQL);
 			
 		if (!"".equals(whereSQL)) {
 			if ("ALL".equals(searchType)) {
@@ -58,22 +58,22 @@
 		rs.next();
 		int totalCount = rs.getInt("TOTAL");
 		// 게시물 목록을 얻는 쿼리 실행
-		pstmt = conn.prepareStatement("SELECT NUM, SUBJECT, WRITER, REG_DATE, HIT FROM boards "+whereSQL+" ORDER BY NUM DESC LIMIT ?, ?");
+		pstmt = conn.prepareStatement("SELECT idx, title, user,view,description FROM tree "+whereSQL+" ORDER BY idx DESC LIMIT ?, ?");
 		if (!"".equals(whereSQL)) {
 			// 전체검색일시
 			if ("ALL".equals(searchType)) {
 				pstmt.setString(1, searchTextUTF8);
 				pstmt.setString(2, searchTextUTF8);
 				pstmt.setString(3, searchTextUTF8);
-				pstmt.setInt(4, listCount * (pageNumTemp-1));
+				pstmt.setInt(4, listCount * (pageidxTemp-1));
 				pstmt.setInt(5, listCount);			
 			} else {
 				pstmt.setString(1, searchTextUTF8);
-				pstmt.setInt(2, listCount * (pageNumTemp-1));
+				pstmt.setInt(2, listCount * (pageidxTemp-1));
 				pstmt.setInt(3, listCount);			
 			}
 		} else {	
-			pstmt.setInt(1, listCount * (pageNumTemp-1));
+			pstmt.setInt(1, listCount * (pageidxTemp-1));
 			pstmt.setInt(2, listCount);
 		}
 		
@@ -100,8 +100,8 @@
 		
 		<colgroup>
 			<col width="130" />
-			<col width="800" />
-			<col width="200" />
+			<col width="700" />
+			<col width="300" />
 			<col width="200" />
 			<col width="110" />
 		</colgroup>
@@ -120,11 +120,11 @@
 					i++;
 			%>
 			<tr>
-				<td id="line" align="left"> <%=totalCount - i + 1 - (pageNumTemp - 1) * listCount %></td>
-				<td id="line" ><a class="links" href="boardView.jsp?num=<%=rs.getInt("NUM")%>&amp;pageNum=<%=pageNumTemp%>&amp;searchType=<%=searchType%>&amp;searchText=<%=searchText%>"><%=rs.getString("SUBJECT") %></a></td>
-				<td id="line" align="left">ID<br/> <%=rs.getString("WRITER") %></td>
-				<td id="line" align="left">등록일시 <br/><%=rs.getString("REG_DATE").substring(0, 10) %></td>
-				<td id="line" align="left">조회수<%=rs.getInt("HIT") %></td>
+				<td id="line" align="left"> <%=totalCount - i + 1 - (pageidxTemp - 1) * listCount %></td>
+				<td id="line" ><a class="links" href="boardView.jsp?idx=<%=rs.getInt("idx")%>&amp;pageidx=<%=pageidxTemp%>&amp;searchType=<%=searchType%>&amp;searchText=<%=searchText%>"><%=rs.getString("title") %></a></td>
+				<td id="line" align="left">설명<br/> <%=rs.getString("description") %></td>
+				<td id="line" align="left">ID<br/> <%=rs.getString("user") %></td>
+				<td id="line" align="left">조회수<%=rs.getInt("view") %></td>
 			</tr>
 			
 			<%
@@ -143,61 +143,61 @@
 				searchText = URLEncoder.encode(searchText,"ISO-8859-1");
 				// 페이지 네비게이터
 				if(totalCount > 0) {
-					int totalNumOfPage = (totalCount % listCount == 0) ? 
+					int totalidxOfPage = (totalCount % listCount == 0) ? 
 							totalCount / listCount :
 							totalCount / listCount + 1;
 					
-					int totalNumOfBlock = (totalNumOfPage % pagePerBlock == 0) ?
-							totalNumOfPage / pagePerBlock :
-							totalNumOfPage / pagePerBlock + 1;
+					int totalidxOfBlock = (totalidxOfPage % pagePerBlock == 0) ?
+							totalidxOfPage / pagePerBlock :
+							totalidxOfPage / pagePerBlock + 1;
 					
-					int currentBlock = (pageNumTemp % pagePerBlock == 0) ? 
-							pageNumTemp / pagePerBlock :
-							pageNumTemp / pagePerBlock + 1;
+					int currentBlock = (pageidxTemp % pagePerBlock == 0) ? 
+							pageidxTemp / pagePerBlock :
+							pageidxTemp / pagePerBlock + 1;
 					
 					int startPage = (currentBlock - 1) * pagePerBlock + 1;
 					int endPage = startPage + pagePerBlock - 1;
 					
-					if(endPage > totalNumOfPage)
-						endPage = totalNumOfPage;
+					if(endPage > totalidxOfPage)
+						endPage = totalidxOfPage;
 					boolean isNext = false;
 					boolean isPrev = false;
-					if(currentBlock < totalNumOfBlock)
+					if(currentBlock < totalidxOfBlock)
 						isNext = true;
 					if(currentBlock > 1)
 						isPrev = true;
-					if(totalNumOfBlock == 1){
+					if(totalidxOfBlock == 1){
 						isNext = false;
 						isPrev = false;
 					}
 					StringBuffer sb = new StringBuffer();
-					if(pageNumTemp > 1){
+					if(pageidxTemp > 1){
 						
-						sb.append("<a href=\"").append("boardResult.jsp?pageNum=1&amp;searchType="+searchType+"&amp;searchText="+searchText );
+						sb.append("<a href=\"").append("boardResult.jsp?pageidx=1&amp;searchType="+searchType+"&amp;searchText="+searchText );
 						sb.append("\" title=\"<<\"><<</a>&nbsp;");
 					}
 					if (isPrev) {
 						int goPrevPage = startPage - pagePerBlock;			
-						sb.append("&nbsp;&nbsp;<a href=\"").append("boardResult.jsp?pageNum="+goPrevPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
+						sb.append("&nbsp;&nbsp;<a href=\"").append("boardResult.jsp?pageidx="+goPrevPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
 						sb.append("\" title=\"<\"><</a>");
 					} else {}
 		
 					for (int i = startPage; i <= endPage; i++) {
-						if (i == pageNumTemp) {
+						if (i == pageidxTemp) {
 							sb.append("<a href=\"#\"><strong>").append(i).append("</strong></a>&nbsp;&nbsp;");
 						} else {
-							sb.append("<a href=\"").append("boardResult.jsp?pageNum="+i+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
+							sb.append("<a href=\"").append("boardResult.jsp?pageidx="+i+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
 							sb.append("\" title=\""+i+"\">").append(i).append("</a>&nbsp;&nbsp;");
 						}
 					}
 					if (isNext) {
 						int goNextPage = startPage + pagePerBlock;
 	
-						sb.append("<a href=\"").append("boardResult.jsp?pageNum="+goNextPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
+						sb.append("<a href=\"").append("boardResult.jsp?pageidx="+goNextPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
 						sb.append("\" title=\">\">></a>");
 					} else {}
-					if(totalNumOfPage > pageNumTemp){
-						sb.append("&nbsp;&nbsp;<a href=\"").append("boardResult.jsp?pageNum="+totalNumOfPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
+					if(totalidxOfPage > pageidxTemp){
+						sb.append("&nbsp;&nbsp;<a href=\"").append("boardResult.jsp?pageidx="+totalidxOfPage+"&amp;searchType="+searchType+"&amp;searchText="+searchText);
 						sb.append("\" title=\">>\">>></a>");
 					}
 					out.print(sb.toString());

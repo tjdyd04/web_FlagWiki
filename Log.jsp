@@ -30,13 +30,13 @@
 	// 검색어 쿼리문 생성
 	if (!"".equals(searchText)) {
 		if ("ALL".equals(searchType)) {
-			whereSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%') OR WRITER LIKE CONCAT('%',?,'%') OR CONTENTS LIKE CONCAT('%',?,'%') ";
-		} else if ("SUBJECT".equals(searchType)) {
-			whereSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%') ";
-		} else if ("WRITER".equals(searchType)) {
-			whereSQL = " WHERE WRITER LIKE CONCAT('%',?,'%') ";
-		} else if ("CONTENTS".equals(searchType)) {
-			whereSQL = " WHERE CONTENTS LIKE CONCAT('%',?,'%') ";
+			whereSQL = " WHERE title LIKE CONCAT('%',?,'%') OR user LIKE CONCAT('%',?,'%') OR description LIKE CONCAT('%',?,'%') ";
+		} else if ("title".equals(searchType)) {
+			whereSQL = " WHERE title LIKE CONCAT('%',?,'%') ";
+		} else if ("user".equals(searchType)) {
+			whereSQL = " WHERE user LIKE CONCAT('%',?,'%') ";
+		} else if ("description".equals(searchType)) {
+			whereSQL = " WHERE description LIKE CONCAT('%',?,'%') ";
 		}
 	}
 	try {
@@ -44,9 +44,7 @@
 		conn = DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
 		// 게시물의 총 수를 얻는 쿼리 실행
-		pstmt = conn
-				.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM boards"
-						+ whereSQL);
+		pstmt = conn.prepareStatement("SELECT COUNT(idx) AS TOTAL FROM tree" + whereSQL);
 
 		if (!"".equals(whereSQL)) {
 			if ("ALL".equals(searchType)) {
@@ -61,9 +59,7 @@
 		rs.next();
 		int totalCount = rs.getInt("TOTAL");
 		// 게시물 목록을 얻는 쿼리 실행
-		pstmt = conn
-				.prepareStatement("SELECT NUM, SUBJECT, WRITER, REG_DATE, HIT FROM boards "
-						+ whereSQL + " ORDER BY NUM DESC LIMIT ?, ?");
+		pstmt = conn.prepareStatement("SELECT idx, title, user,view,description FROM tree "+whereSQL+" ORDER BY idx DESC LIMIT ?, ?");
 		if (!"".equals(whereSQL)) {
 			// 전체검색일시
 			if ("ALL".equals(searchType)) {
@@ -120,7 +116,7 @@
 		%>
 		<tr>
 			<td id="line"><a class="links"
-				href="boardView.jsp?pageNum=<%=pageNumTemp%>&amp;searchType=<%=searchType%>&amp;"><%=rs.getString("SUBJECT")%></a></td>
+				href="boardView.jsp?pageNum=<%=pageNumTemp%>&amp;searchType=<%=searchType%>&amp;"><%=rs.getString("title")%></a></td>
 		</tr>
 
 		<%
@@ -129,7 +125,7 @@
 				rs.first();
 				rs.previous();
 		%>
-		</tbody>
+		</tbody>		
 		<tfoot>
 	
 
