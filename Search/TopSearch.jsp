@@ -108,9 +108,12 @@ try {
 	<jsp:include page="../Head_Navigation/head.jsp" flush="false" />	
 
 	<div id=Search_Top>
+<<<<<<< HEAD
 		</br>
 		<span id="Main_Login">
 		</span>
+=======
+>>>>>>> fec3d62d23168207ad753b994c1ed14eb9670dbe
 
 		<form name="searchForm" action="boardResult.jsp" method="get" onsubmit="return searchCheck();" >
 			<a class="link" href ="Repositores.jsp" >FlagWiki</a>&nbsp;&nbsp;&nbsp;	
