@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import = "java.sql.*" %>                   
+<%@ page import="java.sql.*"%>                   
 <%
 	request.setCharacterEncoding("utf-8");
 	String user = (String)session.getAttribute("user");
-	String tree = request.getParameter("tree");
 	String b_user = request.getParameter("b_user");
-	String mem = request.getParameter("val");
+	String tree = request.getParameter("tree");
+	String version = request.getParameter("flag_version");
+
 	String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                               
     String pw = "wjstks25@";
-	String tree_idx ="";
-	String search_idx = "SELECT * FROM tree WHERE title=? AND user=?";
-	String insert_mem = "INSERT INTO tree_member(idx_tree,user,rank) VALUES(?,?,?)";
+
+	String tree_version="";
+	String change_ver_sql = "UPDATE tree SET current_flag=? WHERE title=? AND user=?"; 
 	String insert_history = "INSERT INTO history(tree,b_user,user,content,type) VALUES(?,?,?,?,?)";
-	String templete = "<span class=\"label label-default\">" + user + "</span>님이 <span class=\"label label-success\">" + tree  + "</span>에 <span class=\"label label-primary\">" + mem + "</span> 님을 <strong>협력자</strong>로 추가하였습니다.";
+	String templete="";
 	
 	Connection conn = null;                   
 	PreparedStatement pstmt = null;
@@ -22,31 +23,22 @@
 	try{
 	    Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(url,id,pw);
-		pstmt = conn.prepareStatement(search_idx);
-		pstmt.setString(1,tree);
-		pstmt.setString(2,b_user);
-		rs = pstmt.executeQuery();
-		while(rs.next()){
-			tree_idx=rs.getString(1);
-		}
-		
-		pstmt.close();
-
-		pstmt = conn.prepareStatement(insert_mem);
-		pstmt.setString(1,tree_idx);
-		pstmt.setString(2,mem);
-		pstmt.setString(3,"1");
+		pstmt = conn.prepareStatement(change_ver_sql);
+		pstmt.setString(1,version);
+		pstmt.setString(2,tree);
+		pstmt.setString(3,b_user);
 		pstmt.executeUpdate();
+
 		pstmt.close();
 
+		templete= "<span class=\"label label-default\">" +user + "</span>님이 <span class=\"label label-success\">" + tree + "</span>를 " + version + "번째 깃발로 <strong>전환</strong> 하였습니다.";
 		pstmt = conn.prepareStatement(insert_history);
 		pstmt.setString(1,tree);
 		pstmt.setString(2,b_user);
 		pstmt.setString(3,user);
 		pstmt.setString(4,templete);
-		pstmt.setString(5,"mem");
+		pstmt.setString(5,"flag");
 		pstmt.executeUpdate();
-
 
 	}catch(SQLException e){
 
@@ -56,3 +48,4 @@
 		if(rs != null) try{rs.close();}catch(SQLException e){}   
 	}
 %>	
+

@@ -2,7 +2,7 @@ function show_list(value){
 	var folder_icon;
 	var html = '';
 	html +='<div class="list-group">';
-	$.post("list_json.jsp",{value:value},function(data){
+	$.post("/main/list_json.jsp",{value:value},function(data){
 		$.each(data,function(entryIndex,entry){
 			var title=entry.title;
 			if(entry.rank == '1'){
@@ -19,9 +19,9 @@ function show_list(value){
 			}
 			var para = encodeURIComponent(entry.title);
 			if(entry.rank =='0' || entry.rank =='1'){
-			html +='<a href="../CheckTree/board.jsp?tree=' + para + '&b_user=' + entry.user + '" class="list-group-item">';	
+			html +='<a href="/CheckTree/board.jsp?tree=' + para + '&b_user=' + entry.user + '" class="list-group-item">';	
 			}else if(entry.rank =='2'){
-			html +='<a href="../CheckTree/index.jsp?tree=' + para + '&b_user=' + entry.user + '" class="list-group-item">'; 
+			html +='<a href="/CheckTree/index.jsp?tree=' + para + '&b_user=' + entry.user + '" class="list-group-item">'; 
 			}
 			html +='<span class="' + folder_icon + '" aria-hidden="true"></span>';
 			html += title + '</a>';
@@ -53,6 +53,6 @@ $(document).ready(function(){
 		show_list(value);
 	});
 	$('#add_rep').click(function(){
-		window.location="create.jsp";
+		window.location="/main/create.jsp";
 	});
 });	

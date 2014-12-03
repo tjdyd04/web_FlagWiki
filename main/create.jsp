@@ -9,17 +9,17 @@
 <meta charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="dist/css/bootstrap-select.css">
-<link rel="stylesheet" type="text/css" href="create.css">
+<link rel="stylesheet" type="text/css" href="/main/dist/css/create.css">
 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="dist/js/bootstrap-select.js"></script>
-<script src="create.js"></script>
+<script src="/main/dist/js/create.js"></script>
 </head>
 <body>
 
 <fieldset class="well the-fieldset">
-<form action="add.jsp" method="post">
+<form action="/main/add.jsp" method="post">
 <legend><H1>저장소추가</H1></legend>
 <div id="info">
 <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> USER <%=user%> </a>

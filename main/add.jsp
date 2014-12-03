@@ -12,6 +12,8 @@
 	String tree_sql = "INSERT INTO tree(title,user,view,description,category)" + " values(?,?,?,?,?)";  
 	String select_idx_sql = "SELECT * FROM tree WHERE title=? AND user=?";
 	String tree_member_sql ="INSERT INTO tree_member(idx_tree,user)" + " values(?,?)";
+	String insert_history = "INSERT INTO history(tree,b_user,user,content,type) VALUES(?,?,?,?,?)";
+	String templete="";
 
 	Connection conn = null;                   
 	PreparedStatement pstmt = null;
@@ -52,6 +54,17 @@
 	pstmt.setString(1,idx);
 	pstmt.setString(2,user);
 	pstmt.executeUpdate();
+
+	templete="<span class=\"label label-default\">" + user + "</span>님이 <span class=\"label label-success\">" + title + "</span>를 <strong>생성</strong> 하였습니다.";
+	pstmt.close();
+	pstmt = conn.prepareStatement(insert_history);
+	pstmt.setString(1,title);
+	pstmt.setString(2,user);
+	pstmt.setString(3,user);
+	pstmt.setString(4,templete);
+	pstmt.setString(5,"add");
+	pstmt.executeUpdate();
+
 	}catch(SQLException e){
 
 	}finally{
@@ -63,5 +76,5 @@
 %>
 <script>
 alert('추가하였습니다');
-window.location="view.jsp";
+window.location="/Search/Repositores.jsp";
 </script>

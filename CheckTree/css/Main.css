@@ -63,3 +63,12 @@
 #req_button button{
 	margin-left:10px;
 }
+button[data-toggle]{
+	margin-right:20px;
+}
+div.flag_option{
+	margin-top:20px;
+}
+div.flag_option button{
+	margin-left:10px;
+}

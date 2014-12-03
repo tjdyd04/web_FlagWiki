@@ -9,19 +9,22 @@
 	String title = request.getParameter("title");
 	String data = request.getParameter("data");
 	String r_type = request.getParameter("r_type");
-	if(r_type == null){
-		r_type = "내용수정요청";
+	if(r_type.equals("null")){
+		r_type = "수정요청";
 	}else{
 		r_type = "건의";
 	}
 	String b_user="";
 	String tree="";
+	String b_title="";
 
 	String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                               
     String pw = "wjstks25@";
 	String select_sql = "SELECT * FROM mainboard WHERE idx=?";
 	String insert_sql = "INSERT INTO request (board_idx,type,user,title,content,tree,b_user) VALUES(?,?,?,?,?,?,?)";
+	String insert_history = "INSERT INTO history(tree,b_user,user,content,type) VALUES(?,?,?,?,?)";
+	String templete="";
 		
 	Connection conn = null;                   
 	PreparedStatement pstmt = null;
@@ -36,6 +39,7 @@
 		rs = pstmt.executeQuery();
 		
 		while(rs.next()){
+			b_title =rs.getString(2);
 			b_user = rs.getString(8);
 			tree = rs.getString(9);
 		}
@@ -52,6 +56,17 @@
 		pstmt.setString(6,tree);
 		pstmt.setString(7,b_user);
 		pstmt.executeUpdate();
+
+		templete= "<span class=\"label label-default\">" +user + "</span>님이 <span class=\"label label-success\">" + tree + "</span> 의 <span class=\"label label-warning\">" + b_title + "</span>에 <strong>" + r_type + "</strong> 하였습니다";
+		pstmt.close();
+		pstmt = conn.prepareStatement(insert_history);
+		pstmt.setString(1,tree);
+		pstmt.setString(2,b_user);
+		pstmt.setString(3,user);
+		pstmt.setString(4,templete);
+		pstmt.setString(5,"request");
+		pstmt.executeUpdate();
+
 
 
 	}catch(SQLException e){

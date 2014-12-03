@@ -35,8 +35,8 @@ if (!"".equals(searchText)) {
 		whereSQL = " WHERE title LIKE CONCAT('%',?,'%') ";
 	} else if ("user".equals(searchType)) {
 		whereSQL = " WHERE user LIKE CONCAT('%',?,'%') ";
-	} else if ("description".equals(searchType)) {
-		whereSQL = " WHERE description LIKE CONCAT('%',?,'%') ";
+	} else if ("description ".equals(searchType)) {
+		whereSQL = " WHERE CONTENTS LIKE CONCAT('%',?,'%') ";
 	}
 }
 try {
@@ -104,21 +104,20 @@ try {
 </head>
 <body>
 	
-		<!-- 머리 폼 -->
-	<jsp:include page="../Head_Navigation/head.jsp" flush="false" />	
-
 	<div id=Search_Top>
 		</br>
 		<span id="Main_Login">
+		<input class="btn btn-default" type="button" value="로그인">
+		<input class="btn btn-default" type="button" value="회원가입">
 		</span>
 
-		<form name="searchForm" action="boardResult.jsp" method="get" onsubmit="return searchCheck();" >
-			<a class="link" href ="Repositores.jsp" >FlagWiki</a>&nbsp;&nbsp;&nbsp;	
+		<form name="searchForm" action="Res.jsp" method="get" onsubmit="return searchCheck();" >
+			<a class="link" href ="#" >FlagWiki</a>&nbsp;&nbsp;&nbsp;	
 			<select style="height:34px;" name="searchType">
 			<option value="ALL" selected="selected">전체검색</option>
 			<option value="title" <%if ("title".equals(searchType)) out.print("selected=\"selected\""); %>>제목</option>
 			<option value="user" <%if ("user".equals(searchType)) out.print("selected=\"selected\""); %>>작성자</option>
-			<option value="description" <%if ("description".equals(searchType)) out.print("selected=\"selected\""); %>>설명</option>	
+			<option value="description" <%if ("description ".equals(searchType)) out.print("selected=\"selected\""); %>>설명</option>	
 			</select>
 			<input type="text" id="Search" size="50" name="searchText" value="<%=searchTextUTF8%>" />
 			<input class="btn btn-default" type="submit" value="검색" />
@@ -137,4 +136,4 @@ try {
 	}
 %>
 	
-	
+		

@@ -1,5 +1,5 @@
    $(document).ready(function() {
-		$.getJSON('tree_json.jsp',{tree:tree,b_user:b_user},function(data){
+		$.post('tree_json.jsp',{tree:tree,b_user:b_user},function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
@@ -74,5 +74,5 @@
 					}
 				});
 			});
-  		});
+  		},"json");
 	});

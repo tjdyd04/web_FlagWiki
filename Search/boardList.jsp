@@ -3,7 +3,7 @@
 <%
 	// 사용할 객체 초기화
 	String url = "jdbc:mysql://localhost:3306/jykim";        
-    	String id = "jykim";                                                    
+   	String id = "jykim";                                                    
    	String pw = "wjstks25@"; 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -30,13 +30,13 @@
 	// 검색어 쿼리문 생성
 	if (!"".equals(searchText)) {
 		if ("ALL".equals(searchType)) {
-			whereSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%') OR WRITER LIKE CONCAT('%',?,'%') OR CONTENTS LIKE CONCAT('%',?,'%') ";
-		} else if ("SUBJECT".equals(searchType)) {
-			whereSQL = " WHERE SUBJECT LIKE CONCAT('%',?,'%') ";
-		} else if ("WRITER".equals(searchType)) {
-			whereSQL = " WHERE WRITER LIKE CONCAT('%',?,'%') ";
-		} else if ("CONTENTS".equals(searchType)) {
-			whereSQL = " WHERE CONTENTS LIKE CONCAT('%',?,'%') ";
+			whereSQL = " WHERE title LIKE CONCAT('%',?,'%') OR user LIKE CONCAT('%',?,'%') OR description LIKE CONCAT('%',?,'%') ";
+		} else if ("title".equals(searchType)) {
+			whereSQL = " WHERE title LIKE CONCAT('%',?,'%') ";
+		} else if ("user".equals(searchType)) {
+			whereSQL = " WHERE user LIKE CONCAT('%',?,'%') ";
+		} else if ("description".equals(searchType)) {
+			whereSQL = " WHERE description LIKE CONCAT('%',?,'%') ";
 		}
 	}
 	try {
@@ -44,7 +44,7 @@
 		conn = DriverManager.getConnection(url,id,pw);
 		
 		// 게시물의 총 수를 얻는 쿼리 실행
-		pstmt = conn.prepareStatement("SELECT COUNT(NUM) AS TOTAL FROM boards" + whereSQL);
+		pstmt = conn.prepareStatement("SELECT COUNT(idx) AS TOTAL FROM tree" + whereSQL);
 		if (!"".equals(whereSQL)) {
 			if ("ALL".equals(searchType)) {
 				pstmt.setString(1, searchTextUTF8);
@@ -58,7 +58,7 @@
 		rs.next();
 		int totalCount = rs.getInt("TOTAL");
 		// 게시물 목록을 얻는 쿼리 실행
-		pstmt = conn.prepareStatement("SELECT NUM, SUBJECT, WRITER, REG_DATE, HIT FROM boards "+whereSQL+" ORDER BY NUM DESC LIMIT ?, ?");
+		pstmt = conn.prepareStatement("SELECT idx, title, user,view,description FROM tree "+whereSQL+" ORDER BY idx DESC LIMIT ?, ?");
 		if (!"".equals(whereSQL)) {
 			// 전체검색일시
 			if ("ALL".equals(searchType)) {
@@ -121,12 +121,13 @@
 		<div id="Main_Search">
 		<select style="height:31px;" name="searchType">
 			<option value="ALL" selected="selected">전체검색</option>
-			<option value="SUBJECT" <%if ("SUBJECT".equals(searchType)) out.print("selected=\"selected\""); %>>제목</option>
-			<option value="WRITER" <%if ("WRITER".equals(searchType)) out.print("selected=\"selected\""); %>>작성자</option>
-			<option value="CONTENTS" <%if ("CONTENTS".equals(searchType)) out.print("selected=\"selected\""); %>>내용</option>
+			<option value="title" <%if ("title".equals(searchType)) out.print("selected=\"selected\""); %>>제목</option>
+			<option value="user" <%if ("user".equals(searchType)) out.print("selected=\"selected\""); %>>작성자</option>
+			<option value="description" <%if ("description".equals(searchType)) out.print("selected=\"selected\""); %>>설명</option>
 		</select>
 		<input type="text" id="Search" size="50" name="searchText" value="<%=searchTextUTF8%>" />
-		<input class="btn btn-default" type="button" value="검색" onClick="javacript:searchCheck()">		
+		<input class="btn btn-default" type="submit" value="검색" />
+
 		</div>
 	</form>
 		

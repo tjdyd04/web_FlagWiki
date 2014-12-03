@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var html='';
-	$.post('category.jsp',function(data){
+	$.post('/main/category.jsp',function(data){
 		html+='<select class="selectpicker" name="cate"  data-live-search="true">';
 		$.each(data,function(entryIndex,entry){
 			html +='<option value="' + entry.title + '">'

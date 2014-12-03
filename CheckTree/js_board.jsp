@@ -5,12 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-ｅquiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset=UTF-8"/>
 <title>게시판 등록</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-<script src="button.js"></script>
+<script type="text/javascript" src="/CheckTree/ckeditor/ckeditor.js"></script>
+<script src="/CheckTree/button.js"></script>
 <script type="text/javascript">
 var idx="<%=idx%>";
 $(document).ready(function(){
@@ -22,6 +20,7 @@ $(document).ready(function(){
 			html += '<script>' + 'CKEDITOR.replace("contents")' + '</' + 'script>';
         });
         $('#board').html(html);
+
     },"json");
 });
 

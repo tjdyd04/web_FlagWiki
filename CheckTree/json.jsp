@@ -8,6 +8,8 @@
 	String type = request.getParameter("type");
 	String tree = request.getParameter("tree");
 	String b_user = request.getParameter("b_user");
+	String version = request.getParameter("version");
+	
 	String sql="";
     String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                                                  
@@ -46,12 +48,20 @@
 	}else if(type.equals("0")){
 		pstmt.setString(1,b_user);
 		pstmt.setString(2,tree);
-		pstmt.setString(3,flag);
+		if(version == null || version.equals("null")){
+			pstmt.setString(3,flag);
+		}else{
+			pstmt.setString(3,version);
+		}
 	}else{
 		pstmt.setString(1,type);
 		pstmt.setString(2,b_user);
 		pstmt.setString(3,tree);
-		pstmt.setString(4,flag);
+		if(version == null || version.equals("null")){
+			pstmt.setString(4,flag);
+		}else{
+			pstmt.setString(4,version);
+		}
 	}
 	rs = pstmt.executeQuery();
 	JSONArray itemList = new JSONArray();

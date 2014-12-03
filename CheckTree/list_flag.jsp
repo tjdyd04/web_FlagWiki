@@ -1,19 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import = "java.sql.*" %>                   
+<%@ page import="org.json.simple.JSONObject"%>
+<%@ page import="org.json.simple.JSONArray"%>
+<%@ page import="java.util.*,java.text.*"%>
+<%@ page import="java.sql.*"%>                   
 <%
 	request.setCharacterEncoding("utf-8");
 	String user = (String)session.getAttribute("user");
-	String tree = request.getParameter("tree");
 	String b_user = request.getParameter("b_user");
-	String mem = request.getParameter("val");
+	String tree = request.getParameter("tree");
 	String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                               
     String pw = "wjstks25@";
-	String tree_idx ="";
+
 	String search_idx = "SELECT * FROM tree WHERE title=? AND user=?";
-	String insert_mem = "INSERT INTO tree_member(idx_tree,user,rank) VALUES(?,?,?)";
-	String insert_history = "INSERT INTO history(tree,b_user,user,content,type) VALUES(?,?,?,?,?)";
-	String templete = "<span class=\"label label-default\">" + user + "</span>님이 <span class=\"label label-success\">" + tree  + "</span>에 <span class=\"label label-primary\">" + mem + "</span> 님을 <strong>협력자</strong>로 추가하였습니다.";
+	String tree_idx="";
+	String tree_version="";
+	String search_mem = "SELECT * FROM flag WHERE tree_idx=?"; 
+	
+	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy년 MM월 dd일 HH시mm분ss초 등록");
 	
 	Connection conn = null;                   
 	PreparedStatement pstmt = null;
@@ -28,26 +32,27 @@
 		rs = pstmt.executeQuery();
 		while(rs.next()){
 			tree_idx=rs.getString(1);
+			tree_version=rs.getString(8);
 		}
-		
+		rs.close();
 		pstmt.close();
 
-		pstmt = conn.prepareStatement(insert_mem);
+		pstmt = conn.prepareStatement(search_mem);
 		pstmt.setString(1,tree_idx);
-		pstmt.setString(2,mem);
-		pstmt.setString(3,"1");
-		pstmt.executeUpdate();
-		pstmt.close();
+		rs = pstmt.executeQuery();
 
-		pstmt = conn.prepareStatement(insert_history);
-		pstmt.setString(1,tree);
-		pstmt.setString(2,b_user);
-		pstmt.setString(3,user);
-		pstmt.setString(4,templete);
-		pstmt.setString(5,"mem");
-		pstmt.executeUpdate();
-
-
+		JSONArray itemList = new JSONArray();
+   		while(rs.next()){    
+   			JSONObject obj=new JSONObject();
+			obj.put("tree_ver",tree_version);
+			obj.put("version",rs.getString(3));
+			obj.put("comment",rs.getString(4));
+			obj.put("writer",rs.getString(5));
+			String dateStr = formatter.format(rs.getTimestamp("update"));
+			obj.put("update",dateStr);
+    		itemList.add(obj);
+   		}
+    out.print(itemList);
 	}catch(SQLException e){
 
 	}finally{
@@ -56,3 +61,4 @@
 		if(rs != null) try{rs.close();}catch(SQLException e){}   
 	}
 %>	
+

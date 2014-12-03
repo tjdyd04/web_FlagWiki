@@ -9,10 +9,14 @@
 <meta charset="utf-8"/>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="./view.css">
-<script src="./view.js"></script>
+<link rel="stylesheet" type="text/css" href="/main/dist/css/view.css"> 
+<script src="/main/dist/js/view.js"></script>
+<script src="/main/dist/js/log.js"></script>
+
 </head>
 <body>
+<div id="main_page">
+<div id="log_content"></div>
 <div class="panel panel-default" id="list">
 <div class="panel-heading" id="p_header"><H3>My Repository</H3></div>
 <div class="panel-body">
@@ -23,6 +27,8 @@
 <li><a href="#" value="requestor">Requestor</a></li>
 </ol>
 <div class="list-group" id="list-group"></div>
+</div>
+</div>
 </div>
 </div>
 </body>

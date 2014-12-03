@@ -4,20 +4,21 @@
 	String type = request.getParameter("type");
 	String tree = request.getParameter("tree");
 	String b_user = request.getParameter("b_user");
+	String version = request.getParameter("version");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8"/>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	var idx="<%=idx%>";
 	var type="<%=type%>";
 	var tree="<%=tree%>";
 	var b_user="<%=b_user%>";
+	var version="<%=version%>";
     
-	$.post('json.jsp',{idx:idx,type:type,tree:tree,b_user:b_user}, function(data) {
+	$.post('json.jsp',{idx:idx,type:type,tree:tree,b_user:b_user,version:version}, function(data) {
         var html = '';
         $.each(data, function(entryIndex, entry) {
             html += '<div>';

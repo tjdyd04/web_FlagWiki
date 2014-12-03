@@ -12,7 +12,6 @@
 	String tree_idx ="";
 	String search_mem = "SELECT tree.title,tree.user,tree.view,tree_member.rank, tree_member.user, tree_member.idx FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree_member.user=? AND tree.title=?"; 
 	String search_idx = "SELECT * FROM tree WHERE title=? AND user=?";
-	
 	String insert_mem = "INSERT INTO tree_member(idx_tree,user,rank) VALUES(?,?,?)";
 	String delete_mem = "DELETE FROM tree_member WHERE idx=?";
 	

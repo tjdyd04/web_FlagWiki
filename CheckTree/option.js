@@ -8,9 +8,9 @@ $(document).ready(function(){
 	list +='<ul class="nav nav-pills nav-statcked" id="option_ul">';
 	list +='<li class="active"><a href="#" id="mem_list" class="option_list">참여중인인원</a></li>';
 	list +='<li class="active"><a href="#" id="add_mem" class="option_list">협력자추가</a></li>';
-	list +='<li class="active"><a href="#" class="option_list">요청항목</a></li>';
+	list +='<li class="active"><a href="#" id="mypage" class="option_list">요청항목</a></li>';
 	list +='<li class="active"><a href="#" id="save" class="option_list">깃발저장</a></li>';
-	list +='<li class="active"><a href="#" class="option_list">깃발목록</a></li>'
+	list +='<li class="active"><a href="#" id="flag_list" class="option_list">깃발목록</a></li>'
 	list +='</ul>'
 	$('#option').html(html);
 	$('#option').append(list);
@@ -38,6 +38,7 @@ $(document).ready(function(){
 		$('#right').html(html);
 		$('#add_button').click(function(){
 			var val=$('#inputError1').val();
+			alert(val + "님을 협력자로 추가하였습니다");
 			$.post('add_mem.jsp',{tree:tree,b_user:b_user,val:val});		
 		});
 	});
@@ -51,9 +52,87 @@ $(document).ready(function(){
 		$('#right').html(html);
 		$('#save_button').click(function(){
 			var val=$('#flag_text').val();
+			alert("깃발을 저장하였습니다");
 			$.post('save_flag.jsp',{tree:tree,b_user:b_user,val:val});
 		});
 	});
+	$('#flag_list').click(function(){
+		var html='';
+		if(version == null){
+			alert(version);
+		}
+		$.post('list_flag.jsp',{tree:tree,b_user:b_user}, function(data){
+			var button_class="";
+			$.each(data,function(entryIndex,entry){
+				if(entry.tree_ver == entry.version){
+					button_class="btn btn-primary";
+				}else if(entry.version == version){
+					button_class="btn btn-info";
+				}else{
+					button_class="btn btn-default";
+				}
+				html +='<div class="flag_option">';
+				html +='<button type="button" class="' + button_class + '" data-toggle="popover" title="' + entry.writer + '의글" data-content="' + entry.update + '  ※' + entry.comment + '">';
+				html += tree + '의 ' + entry.version + '번째 깃발';
+				html +='</button>';
+				html +='<button type="button" attribute="change" flag_version="' + entry.version + '" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> 전환</button>';
+				html +='<button type="button" attribute="view" flag_version="' + entry.version + '" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> 보기</button>';
+				html +='</div>';
+				
+			});
+			$('#right').html(html);
+			$('[data-toggle="popover"]').popover();
+			$('[attribute="change"]').click(function(){
+				var flag_version = $(this).attr("flag_version");
+				var para = encodeURIComponent(tree);
+				$.post('change_ver.jsp',{tree:tree,b_user:b_user,flag_version:flag_version});
+				alert(flag_version + "번쨰 깃발로 전환하였습니다");
+
+				window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+			});
+			$('[attribute="view"]').click(function(){
+				var flag_version = $(this).attr("flag_version");
+				var para = encodeURIComponent(tree);
+				window.location='board.jsp?tree=' + para +'&b_user=' +b_user +'&version=' + flag_version;
+
+			});
+		},"json");
+	});
+	$('#mypage').click(function(){
+			$.post('receive.jsp',{tree:tree,b_user:b_user},function(data){
+				var html='<table id="request_table"></table>';
+				$('#right').html(html);
+				$('#request_table').bootstrapTable({
+					data:data,
+					height: 400,
+					pagination: true,
+					search: true,
+					columns:[{
+						field:'idx',
+						title:'번호'
+						},{
+						field:'user',
+						title:'작성자'
+						},{
+						field:'board_idx',
+						title:'요청글번호'
+						},{
+						field:'title',
+						title:'글제목'
+						},{
+						field:'type',
+						title:'요청유형'
+						},{
+						field:'date',
+						title:'작성날짜'
+					}]
+				}).on('click-row.bs.table', function (e, row, $element) {
+          			$.post('receive_board.jsp',{idx:row.idx,type:row.type,board_idx:row.board_idx}, function(data){
+                       	$('#right').html(data);
+      		     	});
+				});	
+			},"json");
+		});	
 });
 
 function show_user(){

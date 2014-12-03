@@ -9,11 +9,11 @@
 	if(val.equals("all")){
 		sql= "SELECT tree.title,tree.user,tree.view,tree_member.rank,tree_member.user FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree_member.user=?"; 
 	}else if(val.equals("private")){
-		sql= "SELECT tree.title,tree.user,tree.view,tree_member.rank FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree.user=? AND tree.view='0' AND tree_member.rank!='2'"; 
+		sql= "SELECT tree.title,tree.user,tree.view,tree_member.rank FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree_member.user=? AND tree.view='0' AND tree_member.rank!='2'"; 
 	}else if(val.equals("public")){
-		sql= "SELECT tree.title,tree.user,tree.view,tree_member.rank FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree.user=? AND tree.view='1' AND tree_member.rank!='2'"; 
+		sql= "SELECT tree.title,tree.user,tree.view,tree_member.rank FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree_member.user=? AND tree.view='1' AND tree_member.rank!='2'"; 
 	}else if(val.equals("requestor")){
-		sql= "SELECT tree.title,tree.user,tree.view,tree_member.rank FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree_member.rank='2'"; 
+		sql= "SELECT tree.title,tree.user,tree.view,tree_member.rank,tree_member.user FROM tree RIGHT OUTER JOIN tree_member ON tree.idx = tree_member.idx_tree WHERE tree_member.user=? AND tree_member.rank='2'"; 
 	}
 	Connection conn = null;
 	ResultSet rs = null; 
@@ -26,9 +26,7 @@
     Class.forName("com.mysql.jdbc.Driver");
 	conn=DriverManager.getConnection(url,id,pw);
 	pstmt = conn.prepareStatement(sql);
-	if(!val.equals("requestor")){
-		pstmt.setString(1,user);
-	}
+	pstmt.setString(1,user);
 	rs = pstmt.executeQuery();
 
 	JSONArray itemList = new JSONArray();

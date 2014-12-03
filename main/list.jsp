@@ -38,7 +38,7 @@ $(document).ready(function(){
 <%
 	while(rs.next()){
 %>
-	<div><a href="../CheckTree/board.jsp?tree=<%=rs.getString(1)%>"><%=rs.getString(1)%></a></div>
+	<div><a href="/CheckTree/board.jsp?tree=<%=rs.getString(1)%>"><%=rs.getString(1)%></a></div>
 
 <%
 	}

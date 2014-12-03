@@ -7,16 +7,16 @@
 
 	String tree = request.getParameter("tree");
 	String b_user = request.getParameter("b_user");
-	if(tree != null){
-		tree = new String(request.getParameter("tree").getBytes("iso-8859-1"), "UTF-8");//get 방식의경우
-	}
+
 	String user = (String)session.getAttribute("user");
     String url = "jdbc:mysql://localhost:3306/jykim";        
     String id = "jykim";                                                    
     String pw = "wjstks25@";                                               
+
 	Connection conn = null;                   
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+
 	String sql="SELECT * FROM mainboard WHERE user=? AND tree=? AND flag=? ORDER BY branch,leaf";
 	String flag="";
 	String flag_sql = "SELECT * FROM tree WHERE title=? AND user=?";
