@@ -86,7 +86,11 @@ function checkEmail()
     if( email == "" )
     {
         alert('이메일을 입력하세요');
-    }   
+    }
+    else if( checkEmail(email) == false )
+    {
+        alert('잘못된 형식입니다. 다시입력해주세요');
+    }
     else
     {
         var url ="check_emailDB.jsp?email=" + email;
@@ -94,6 +98,21 @@ function checkEmail()
         emailSuccess = true;
     }
 }
+
+function checkValue(em) { 
+  
+  var email = em;  
+  var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a- z]{2})?)$/;   
+  
+  if(regex.test(email) === false) {  
+      alert("잘못된 이메일 형식입니다.");  
+      return false;  
+  } else {  
+      return true;  
+  }  
+
+}
+
 
 function checkID()
 {
@@ -152,7 +171,7 @@ function checkID()
         <label autocapitalize="off" autofocus="autofocus" data-autocheck-url="/signup_check/username" name="user[email]">Email Address</label></dt>
         <dd>
             <input autocapitalize="off" autofocus="autofocus" name="email" size="30" type="text"> <input type="button" value="이메일중복체크" onClick="javascript:checkEmail()">
-            <p class="note"> 이메일형식은 "-----@---.---" 로 입력해주세요.</p>
+            <p class="note"> 이메일형식은 "-------@----.---" 입니다.</p>
         </dd>
 
     </dl>
@@ -162,7 +181,7 @@ function checkID()
         <label autocapitalize="off" autofocus="autofocus" data-autocheck-url="/signup_check/username" name="user[login]">User ID</label></dt>
         <dd>
             <input autocapitalize="off" autofocus="autofocus" name="user_id" size="30" type="text"> <input type="button" name="checker" value="아이디중복체크" onclick="javascript:checkID()"/> 
-            <p class="note"> 아이디를 입력해주세요.  </p>
+            <p class="note"> 아이디를 입력해주세요. (최소4자, 최대16자) </p>
         </dd>
 
     </dl>
@@ -191,8 +210,8 @@ function checkID()
   </div>
 
 </form>
-    </div> <!-- /.setup-form-container -->
-  </div> <!-- /.setup-main -->
+    </div> 
+  </div>
 </div>
 
 
