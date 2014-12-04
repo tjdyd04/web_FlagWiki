@@ -1,4 +1,4 @@
-<%@ page info="user_id check" errorPage="error.jsp" %>
+<%@ page info="user check" errorPage="error.jsp" %>
 <%@ page contentType="text/html; charset=utf-8" %> 
 <%@ page language="java" import="java.sql.*,java.io.*,java.net.*" %>
 
@@ -8,7 +8,7 @@
     ResultSet  rs   = null;
 
     // User ID값 받기
-    String user_id = request.getParameter("user_id");
+    String user = request.getParameter("user");
     String query  = new String();
     int check_count = 0;  // 해당레코드 카운드
 
@@ -19,7 +19,7 @@
         stmt = conn.createStatement(); // 커넥션으로부터 Statement 생성
 
         // 아이디 조회
-        query = "Select count(*) as count from member where user_id='" + user_id + "'";
+        query = "Select count(*) as count from member where user='" + user + "'";
         rs = stmt.executeQuery(query);
         rs.next();
         check_count = rs.getInt("count");
@@ -45,7 +45,7 @@
 function checkEnd(){
     var form = document.id_check;
 
-    opener.memberForm.user_id.value = form.user_id.value;
+    opener.memberForm.user.value = form.user.value;
     opener.memberForm.pw.focus();
 	window.close();
 }
@@ -53,7 +53,7 @@ function checkEnd(){
 function doCheck(){
     var form = document.id_check;
 
-    if(!checkValue(form.user_id, '아이디', 4, 16)){
+    if(!checkValue(form.user, '아이디', 4, 16)){
         return;
     }
 
@@ -93,7 +93,7 @@ function checkValue(target, cmt, lmin, lmax){
   <table width="500" border="0" bgcolor="#B6C1D6" height="39" align="center">
     <tr> 
       <td bgcolor="#ffffff" width="40%" align="center"> 
-        <input type="text" name="user_id" value="<%=user_id%>" onFocus="this.value=''" maxlength="16" size="30" class="oneborder">
+        <input type="text" name="user" value="<%=user%>" onFocus="this.value=''" maxlength="16" size="30" class="oneborder">
         <input type="button" value="중복확인" onClick="doCheck()" class="oneborder">
       </td>
     </tr>
@@ -102,11 +102,11 @@ function checkValue(target, cmt, lmin, lmax){
 <%
     if(check_count > 0){
 %>
-      [<%=user_id%>]은 등록되어있는 아이디입니다.<br> 다시 시도해주십시오.
+      [<%=user%>]은 등록되어있는 아이디입니다.<br> 다시 시도해주십시오.
 <%
     }else{
 %>
-      [<%=user_id%>]은 사용 가능합니다.
+      [<%=user%>]은 사용 가능합니다.
 <%
     }
 %>

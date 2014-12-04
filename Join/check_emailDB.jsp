@@ -6,26 +6,21 @@
     Connection conn = null;
     Statement  stmt = null;
     ResultSet  rs   = null;
-
     // User Email값 받기
     String email = request.getParameter("email");
     String query  = new String();
     int check_count = 0;  // 해당레코드 카운드
-
     try {
-
-    	Class.forName("com.mysql.jdbc.Driver");
-		conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
+      Class.forName("com.mysql.jdbc.Driver");
+    conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
         stmt = conn.createStatement(); // 커넥션으로부터 Statement 생성
-
         // 아이디 조회
         query = "Select count(*) as count from member where email='" + email + "'";
         rs = stmt.executeQuery(query);
         rs.next();
         check_count = rs.getInt("count");
-
     } catch(SQLException e){
- 	   e.printStackTrace();
+     e.printStackTrace();
     } finally {
         conn.close();
         stmt.close();
@@ -41,15 +36,26 @@
 <link rel="StyleSheet" href="style.css" type="text/css">
 <%-- 자바스크립트 영역 시작 --%>
 <script language="JavaScript">
-
+function checkEnd(){
+    var form = document.id_check;
+    opener.memberForm.email.value = form.email.value;
+    opener.memberForm.user.focus();
+  window.close();
+}
+function doCheck(){
+    var form = document.id_check;
+    if(!checkValue(form.email, '이메일', 4, 30)){
+        return;
+    }
+    form.submit();
+}
 function checkValue(target, cmt, lmin, lmax){
     var Alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var Digit = '1234567890';
     var astr = Alpha+Digit;
     var i;
     var tValue = target.value;
-
-
+ 
     if(astr.length > 1){
         for (i=0; i<tValue.length; i++){
             if(astr.indexOf(tValue.substring(i,i+1))<0){
@@ -61,40 +67,20 @@ function checkValue(target, cmt, lmin, lmax){
     }
     return true;
 }
-
-function checkEnd(){
-    var form = document.email_check;
-
-    opener.memberForm.email.value = form.email.value;
-    opener.memberForm.user_id.focus();
-  	window.close();
-}
-
-function doCheck(){
-    var form = document.email_check;
-
-  if(!checkValue(form.email, '이메일', 4, 30)){
-        return;
-    }
-
-    form.submit();
-}
-
-
 </script>
 
 
-<form name="email_check" method="post" action="check_emailDB.jsp">
+<form name="id_check" method="post" action="check_emailDB.jsp">
   <input type="hidden" name="check_count" value="<%=check_count%>">
   <table width="300" border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
-      <td> 이메일 주소를 입력해주세요.</td>
+      <td>이메일 주소를 입력해주세요.</td>
     </tr>
   </table>
   <table width="500" border="0" bgcolor="#B6C1D6" height="39" align="center">
     <tr> 
       <td bgcolor="#ffffff" width="40%" align="center"> 
-        <input type="text" name="email" value="<%=email%>" onFocus="this.value=''" maxlength="20" size="30" class="oneborder" height="30">
+        <input type="text" name="email" value="<%=email%>" onFocus="this.value=''" maxlength="20" size="16" class="oneborder">
         <input type="button" value="중복확인" onClick="doCheck()" class="oneborder">
       </td>
     </tr>

@@ -19,7 +19,7 @@
       conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jykim", "jykim","wjstks25@");
       stmt = conn.createStatement();
 
-      String query = "SELECT email,user_id,pw FROM member";
+      String query = "SELECT user,pw FROM member";
       rs = stmt.executeQuery(query);
  %>
 
@@ -27,15 +27,14 @@
 <table border="1" cellspacing="0">
 <th> 회원목록 </th>
 <tr>
-<td>Email</td>
-<td>user_id</td>
+
+<td>user</td>
 <td>pw</td>
 </tr>
 <%
     while(rs.next()) { //rs 를 통해 테이블 객체들의 필드값을 넘겨볼 수 있다.
 %><tr>
-<td><%=rs.getString("email")%></td>
-<td><%=rs.getString("user_id")%></td>
+<td><%=rs.getString("user")%></td>
 <td><%=rs.getString("pw")%></td>
 </tr>
 <%

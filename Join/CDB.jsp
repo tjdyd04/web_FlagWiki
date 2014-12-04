@@ -3,7 +3,7 @@
 
 <%
 
-	String user_id = request.getParameter("user_id");
+	String user = request.getParameter("user");
 
 	Connection conn=null;
 	Statement stmt = null;
@@ -17,7 +17,7 @@
 
 
 		stmt = conn.createStatement();
-		String sql =  "select * from member where user_id='"+user_id+"'";
+		String sql =  "select * from member where user='"+user+"'";
 
 
 		rs = stmt.executeQuery(sql);
@@ -35,9 +35,9 @@
 		<title> check ID </title>
 		<script>
 
-		function checkIdClose(user_id)
+		function checkIdClose(user)
 		{
-			opener.memberForm.user_id.value= user_id;
+			opener.memberForm.user.value= user;
 			window.close();
 			opener.memberForm.pw.focus();
 		}
@@ -51,11 +51,11 @@
 
 			try{
 
-				if(rs.next() || (user_id)==null)
+				if(rs.next() || (user)==null)
 				{
 		%>
-					현재 <%=user_id %> 사용불가능<br></br>
-					아이디 : <input type="text" name="user_id"></input>
+					현재 <%=user %> 사용불가능<br></br>
+					아이디 : <input type="text" name="user"></input>
 					<input type="submit" value="중복체크"></input>
 
 		<%
@@ -63,9 +63,9 @@
 				else
 				{
 		%>
-					현재 <%=user_id %> 사용가능<br></br>
+					현재 <%=user %> 사용가능<br></br>
 					<a herf="check_idDB.jsp"> 다른아이디 고르기</a><br></br>
-					<input type="button" value="현재아이디선택" onClick="javascript:checkIdClose('<%= user_id %>')">
+					<input type="button" value="현재아이디선택" onClick="javascript:checkIdClose('<%= user %>')">
 		<%
 				}
 

@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8 "/>
 <!-- include jQuery and jQueryUI libraries -->
-  <link rel="stylesheet" href="css/join.css">
+<link rel="stylesheet" href="css/join.css">
 
 <script type="text/javascript">
 
-    var emailSuccess = false;
+
     var idSuccess = false;
     var pwSuccess = false;
 
@@ -17,11 +17,7 @@ function submitDB(form){
 
     if(checking(form)==true)
     {
-        if(!emailSuccess)
-        {
-            alert ("이메일 중복체크를 해주세요."); 
-        }
-        else if(!idSuccess)
+        if(!idSuccess)
         {
             alert ("아이디 중복체크를 해주세요."); 
 
@@ -39,20 +35,14 @@ function submitDB(form){
 
 function checking(form){ 
 
-    if (form.email.value == "") 
-    { 
-        alert ("이메일을 입력해주세요"); 
-        form.email.focus(); 
-        return false; 
-    }     
 
-
-    if (form.user_id.value == "") 
+    if (form.user.value == "") 
     { 
         alert ("아이디를 입력해주세요"); 
-        form.user_id.focus(); 
+        form.user.focus(); 
         return false; 
     }       
+
                     
     if(!form.pw.value) { 
         alert("비밀번호를 입력해주세요"); 
@@ -79,44 +69,31 @@ function checking(form){
     return true;
 } 
 
-function checkEmail()
-{
-    var email = document.memberForm.email.value;
+//  이메일보류 
+// function checkEmail()
+// {
+//     var email = document.memberForm.email.value;
     
-    if( email == "" )
-    {
-        alert('이메일을 입력하세요');
-    }
-    else if( checkEmail(email) == false )
-    {
-        alert('잘못된 형식입니다. 다시입력해주세요');
-    }
-    else
-    {
-        var url ="check_emailDB.jsp?email=" + email;
-        window.open(url, "",  "width=500, height=150,screenX=500,screenY=200");
-        emailSuccess = true;
-    }
-}
-
-function checkValue(em) { 
-  
-  var email = em;  
-  var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a- z]{2})?)$/;   
-  
-  if(regex.test(email) === false) {  
-      alert("잘못된 이메일 형식입니다.");  
-      return false;  
-  } else {  
-      return true;  
-  }  
-
-}
+//     if( email == "" )
+//     {
+//         alert('이메일을 입력하세요');
+//     }
+//     else if( checkEmail(email) == false )
+//     {
+//         alert('잘못된 형식입니다. 다시입력해주세요');
+//     }
+//     else
+//     {
+//         var url ="check_emailDB.jsp?email=" + email;
+//         window.open(url, "",  "width=500, height=150,screenX=500,screenY=200");
+//         emailSuccess = true;
+//     }
+// }
 
 
 function checkID()
 {
-    var id = document.memberForm.user_id.value;
+    var id = document.memberForm.user.value;
     
     if( id == "" )
     {
@@ -124,7 +101,7 @@ function checkID()
     }   
     else
     {
-        var url ="check_idDB.jsp?user_id=" + id;
+        var url ="check_idDB.jsp?user=" + id;
         window.open(url, "",  "width=500, height=150,screenX=500,screenY=200");
         idSuccess = true;
     }
@@ -149,39 +126,35 @@ function checkID()
 
   <div class="setup-main ">
     <div class="setup-form-container">
-      <noscript>
-        &lt;p class="error"&gt;GitHub does not support browsers with JavaScript disabled.&lt;br&gt;
-        We promise we'll behave.&lt;/p&gt;
-      </noscript>
+
       
    
 <form accept-charset="UTF-8" name="memberForm" action="./connectDB.jsp" autocomplete="off"  method="post">
-    <div style="margin:0;padding:0;display:inline">
-        <input name="utf8" type="hidden" value="✓">
-        <input name="authenticity_token" type="hidden" value="hhlqCv0ygEY8nDtQBJ953YXIHPDBWGx0xKcuAJ2yXiVU3ndIrbLLJ1PrkNsEOZMtkFm6z71qTCyyHVSM1izNhQ==">
-    </div>
+
 
   <h2 class="setup-form-title">
     Create your personal account
   </h2>
 
-
+<!-- 이메일 보류 
   <dl class="form">
     <dt class="input-label">
         <label autocapitalize="off" autofocus="autofocus" data-autocheck-url="/signup_check/username" name="user[email]">Email Address</label></dt>
         <dd>
             <input autocapitalize="off" autofocus="autofocus" name="email" size="30" type="text"> <input type="button" value="이메일중복체크" onClick="javascript:checkEmail()">
-            <p class="note"> 이메일형식은 "-------@----.---" 입니다.</p>
+            <p class="note"> 이메일형식은 "aaaaaa @ aaaa . aaa" 입니다.</p>
         </dd>
 
     </dl>
+-->
 
   <dl class="form">
     <dt class="input-label">
         <label autocapitalize="off" autofocus="autofocus" data-autocheck-url="/signup_check/username" name="user[login]">User ID</label></dt>
         <dd>
-            <input autocapitalize="off" autofocus="autofocus" name="user_id" size="30" type="text"> <input type="button" name="checker" value="아이디중복체크" onclick="javascript:checkID()"/> 
-            <p class="note"> 아이디를 입력해주세요. (최소4자, 최대16자) </p>
+            <input autocapitalize="off" autofocus="autofocus" name="user" size="30" type="text"> <button type="button" class="btn btn-default" onClick="javascript:checkID()"> 아이디중복체크</button>
+
+            <p class="note"> 사용하실 아이디를 입력해주세요. </p>
         </dd>
 
     </dl>
@@ -206,15 +179,17 @@ function checkID()
  
 
   <div class="form-actions">
-     <input type="button" value="Create an account" onClick="javacript:submitDB(memberForm)"/>
+
+     <button type="button" class="btn btn-success " onClick="javacript:submitDB(memberForm)"> Create an account </button>
+    </div>
+
+   
   </div>
 
 </form>
     </div> 
   </div>
 </div>
-
-
 
 
 

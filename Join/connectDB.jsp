@@ -5,8 +5,7 @@
 
 request.setCharacterEncoding("UTF-8");
 
-String email = request.getParameter("email");
-String user_id = request.getParameter("user_id");
+String user = request.getParameter("user");
 String pw = request.getParameter("pw");
 
 Connection conn=null;
@@ -20,24 +19,14 @@ try{
 	conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
 
 	
-	String sql = "INSERT INTO member(email,user_id,pw) VALUES('"
-	+email
-	+"','"
-	+user_id
+	String sql = "INSERT INTO member(user,pw) VALUES('"
+	+user
 	+"',MD5('"
 	+pw+"'))";
 
 	stmt = conn.createStatement();
 	int successSQL = stmt.executeUpdate(sql);
-/*
-	pstmt = conn.prepareStatement("INSERT INTO member(email,user_id,pw) VALUES(?,?,?)");
 
-	pstmt.setString(1,email);
-	pstmt.setString(2,user_id);
-	pstmt.setString(3,pw);
-
-	int successSQL = pstmt.executeUpdate();
-*/
 	if(successSQL==1)
 	{
 		response.sendRedirect("http://www.flagwiki.co.kr/Login");
