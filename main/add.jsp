@@ -13,6 +13,7 @@
 	String select_idx_sql = "SELECT * FROM tree WHERE title=? AND user=?";
 	String tree_member_sql ="INSERT INTO tree_member(idx_tree,user)" + " values(?,?)";
 	String insert_history = "INSERT INTO history(tree,b_user,user,content,type) VALUES(?,?,?,?,?)";
+	String insert_flag ="INSERT INTO flag(tree_idx,version,comment,writer) VALUES(?,?,?,?)";
 	String templete="";
 
 	Connection conn = null;                   
@@ -54,7 +55,14 @@
 	pstmt.setString(1,idx);
 	pstmt.setString(2,user);
 	pstmt.executeUpdate();
+	pstmt.close();
 
+	pstmt = conn.prepareStatement(insert_flag);
+	pstmt.setString(1,idx);
+	pstmt.setString(2,"0");
+	pstmt.setString(3,"초기상태");
+	pstmt.setString(4,user);
+	pstmt.executeUpdate();
 	templete="<span class=\"label label-default\">" + user + "</span>님이 <span class=\"label label-success\">" + title + "</span>를 <strong>생성</strong> 하였습니다.";
 	pstmt.close();
 	pstmt = conn.prepareStatement(insert_history);

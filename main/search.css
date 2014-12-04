@@ -1,0 +1,48 @@
+#flag_search{
+	width:750px;
+	margin:50px auto;	
+}
+.link, .link:hover, .link:active, .link:visited, .link:focus{
+	font-size: 40px;
+	font-weight: bold;
+	font-family: "Comic Sans MS";
+	text-decoration: none;
+}
+#search_select{
+	width:90px;
+	margin-left:10px;
+	display:inline-block;
+}
+#search_type{
+	width:400px;
+	mergin-left:10px;
+	display:inline-block;
+}
+#search_type input{
+	display:inline-block;
+}
+#center{
+	margin:10px auto;
+	width:900px;
+}
+.edge{
+	position:absolute;
+	left:500px;
+}
+.search_title{
+	font-size: 19.35px;
+	font-weight: bold;
+}
+.desc_content{
+	font-size: 6.75;
+	color:#777;
+}
+#cate{
+	width:200px;
+	float:left;
+	margin-right:50px;
+}
+#search_result{
+	width:600px;
+	display:inline-block;
+}
