@@ -20,9 +20,9 @@ function login(form){
 
 function checking(form){ 
 
-    if (form.user_id.value == ""){ 
+    if (form.user.value == ""){ 
         alert ("아이디를 입력해주세요"); 
-        form.user_id.focus(); 
+        form.user.focus(); 
         return false; 
     }     
     if (form.pw.value == ""){ 
@@ -41,7 +41,7 @@ function checking(form){
     <div class="login">
       <h1>Login to FlagWiki</h1>
       <form name="loginForm"action="sessionLogin.jsp" method="post">
-        <p><input type="text" name="user_id" value="" placeholder="User ID"></p>
+        <p><input type="text" name="user" value="" placeholder="User ID"></p>
         <p><input type="password" name="pw" value="" placeholder="Password"></p>
 
         <p class="submit"><input type="button" value="로그인" onClick="login(loginForm)"></p>

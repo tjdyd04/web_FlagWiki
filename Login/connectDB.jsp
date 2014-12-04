@@ -5,7 +5,7 @@
 
 request.setCharacterEncoding("UTF-8");
 
-String user_id = request.getParameter("user_id");
+String user = request.getParameter("user");
 String pw = request.getParameter("pw");
 
 
@@ -17,7 +17,7 @@ try{
 
 	Statement stmt = conn.createStatement();
 
-	String sql = "select * from member where user_id= '" + user_id+"' and pw = '" + pw + "'");
+	String sql = "select * from member where user= '" + user+"' and pw = '" + pw + "'");
 
 	ResultSet rs = stmt.executeQuery(sql);
 

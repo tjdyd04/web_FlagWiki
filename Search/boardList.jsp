@@ -3,7 +3,7 @@
 <%
 	// 사용할 객체 초기화
 	String url = "jdbc:mysql://localhost:3306/jykim";        
-   	String id = "jykim";                                                    
+    	String id = "jykim";                                                    
    	String pw = "wjstks25@"; 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
