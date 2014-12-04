@@ -8,7 +8,7 @@ Connection conn=null;
 Statement stmt=null;
 ResultSet rs =null;
 
-String user_id = request.getParameter("user_id");
+String user = request.getParameter("user");
 String pw = request.getParameter("pw");
 
 try{
@@ -16,19 +16,15 @@ try{
 	Class.forName("com.mysql.jdbc.Driver");
 	conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/jykim","jykim","wjstks25@");
 
-	
-//
-//	String session_id = (String)session.getAttribute("user_id"); 
-//	if(session_id==null||session_id.equals("")){ // session이 없을경우
 
 		stmt = conn.createStatement();
-		String sql =  "select * from member where user_id= '" + user_id+"' and pw = MD5('" + pw + "')";
+		String sql =  "select * from member where user= '" + user+"' and pw = MD5('" + pw + "')";
 
 		rs = stmt.executeQuery(sql);  
 		if(rs.first())
 		{
 			//성공시 세션연결.
-			session.setAttribute("user_id",user_id);
+			session.setAttribute("user",user);
 			session.setMaxInactiveInterval(60*60); //60분유지
 			response.sendRedirect("http://www.flagwiki.co.kr/Search/Repositores.jsp"); //로그인성공시 이동
 
@@ -42,16 +38,11 @@ try{
 		}
 		else
 		{
-			out.println("<script>alert('다시로그인.');</script>");
-			response.sendRedirect("http://www.flagwiki.co.kr/Login");         
+			out.println("<script language=javascript> alert(\"등록된 아이디가 아니거나, 비밀번호 오류입니다.\"); history.go(-1); </script>");
+	//		response.sendRedirect("http://www.flagwiki.co.kr/Login");         
 
 		}
 
-//	}
-//	else
-//	{
-//		response.sendRedirect("http://www.flagwiki.co.kr/Search");
-//	}
 
 
 
