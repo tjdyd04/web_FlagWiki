@@ -19,28 +19,31 @@
 
       <link href="./stylesheet/reset.css" rel="stylesheet" type="text/css">
       <link href="./stylesheet/head.css" rel="stylesheet" type="text/css">  
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
 </head>
 <body>
     <div id="layer_fixed">
-    <table cellspacing="0" cellpadding="0" style="width:100%; height:100%;">
+    <table cellspacing="0" cellpadding="0" style="width:100%; height:100%;" align="right">
     <tr>
        <td style="vertical-align:middle; padding-left: 20px; padding-right: 20px;">
       
         <%
-        if(!isset((String)session.getAttribute("user_id")))
+        String userName = (String)session.getAttribute("user");
+        if(!isset(userName))
         {
-          out.println("로그인정보 없음. 로그인해주세여");
-          out.println("<button type=\"button\" class=\"btn btn-default\" value=\"로그인\" onClick=\"location.href='http://www.flagwiki.co.kr/Login'\">"); 
-          out.println("<button type=\"button\" class=\"btn btn-success\" value=\"회원가입\" onClick=\"location.href='http://www.flagwiki.co.kr/Join'\">");
+
+          out.println("<button type=\"button\" class=\"btn btn-success btn-lg pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Join'\"> 회원가입 </button>");
+          out.println("<button type=\"button\" class=\"btn btn-default btn-lg pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Login'\"> 로그인 </button>"); 
         }
         else
         {
-          out.println((String)session.getAttribute("user_id") + "님 방가방가 ");
+
+         out.println("<button type=\"button\" class=\"btn btn-danger pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Login/sessionLogout.jsp'\"> 로그아웃 </button>"); 
          
-          out.println("<button type=\"button\" class=\"btn btn-danger\" value=\"로그아웃\" onClick=\"location.href='http://www.flagwiki.co.kr/Login/sessionLogout.jsp'\">"); 
-
-
+          out.println("<button type=\"button\" class=\"btn btn-default pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Search/Repositores.jsp'\"> ");
+          out.println( userName +"님");
+          out.println("</button>"); 
+        
          }
 
          %> 
