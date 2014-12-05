@@ -1,0 +1,163 @@
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css");
+
+.setup-wrapper {
+width: 750px;
+margin: 0 auto;
+padding-top: 100px;
+}
+
+.setup-header {
+overflow: hidden;
+padding-bottom: 20px;
+margin-bottom: 30px;
+text-align: left;
+text-shadow: 0 1px 0 white;
+border-bottom: 1px solid #ddd;
+}
+
+.setup-header h1 {
+margin-top: 0;
+margin-bottom: 0;
+font-size: 45px;
+font-weight: normal;
+letter-spacing: -1px;
+}
+
+.setup-header .lead {
+margin-top: 2px;
+margin-bottom: 0;
+font-size: 21px;
+}
+
+.lead {
+margin-bottom: 30px;
+font-size: 20px;
+font-weight: 300;
+color: #555;
+}
+
+html {
+font-family: sans-serif;
+-ms-text-size-adjust: 100%;
+-webkit-text-size-adjust: 100%;
+}
+
+h2 {
+display: block;
+font-size: 1.5em;
+-webkit-margin-before: 0.83em;
+-webkit-margin-after: 0.83em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+font-weight: bold;
+}
+
+body {
+min-width: 1020px;
+font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+color: #333;
+background-color: #fff;
+}
+
+p {
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+}
+
+dl.form>dd p.note {
+min-height: 17px;
+margin: 4px 0 2px;
+font-size: 12px;
+color: #777;
+}
+
+input, select, textarea, button {
+font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, 
+"Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+button, input, optgroup, select, textarea {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+
+input, input[type="password" i], input[type="search" i] {
+-webkit-appearance: textfield;
+padding: 1px;
+background-color: white;
+border: 2px inset;
+border-image-source: initial;
+border-image-slice: initial;
+border-image-width: initial;
+border-image-outset: initial;
+border-image-repeat: initial;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+cursor: auto;
+}
+
+input, textarea, keygen, select, button {
+margin: 0em;
+font: -webkit-small-control;
+color: initial;
+letter-spacing: normal;
+word-spacing: normal;
+text-transform: none;
+text-indent: 0px;
+text-shadow: none;
+display: inline-block;
+text-align: start;
+}
+
+input, textarea, keygen, select, button, meter, progress {
+-webkit-writing-mode: horizontal-tb;
+}
+
+.form-control, input[type="text"], input[type="password"], input[type="number"], input[type="tel"], input[type="url"], textarea {
+min-height: 25px;
+padding: 7px 8px;
+font-size: 13px;
+color: #333;
+vertical-align: middle;
+background-color: #fff;
+background-repeat: no-repeat;
+background-position: right center;
+border: 1px solid #ccc;
+border-radius: 3px;
+outline: none;
+box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+}
+
+.setup-form .form dd input[type="text"],
+ .setup-form .form dd input[type="password"],
+  .setup-form .form dd input[type="email"] {
+width: 100%;
+height: 30px;
+
+}
+
+dl.form>dd input[type="text"], dl.form>dd input[type="password"],
+ dl.form>dd input[type="email"], dl.form>dd input[type="url"] {
+width: 440px;
+height: 30px;
+max-width: 100%;
+margin-right: 5px;
+background-position-x: 98%;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  border-color: #7dc9e2;
+  outline-color: #dceefc;
+  outline-offset: 0;
+}
+
+dl.form input[type="text"], dl.form input[type="password"], dl.form input[type="email"], dl.form input[type="url"], dl.form textarea {
+background-color: #fafafa;
+}
+
+
+
