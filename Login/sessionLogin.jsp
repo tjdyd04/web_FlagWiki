@@ -38,8 +38,7 @@ try{
 		}
 		else
 		{
-			out.println("<script> alert(\"등록된 아이디가 아니거나, 비밀번호 오류입니다.\");</script>");
-			response.sendRedirect("http://www.flagwiki.co.kr/Login");         
+			out.println("<script language=javascript> alert(\"등록된 아이디가 아니거나, 비밀번호 오류입니다.\"); history.go(-1); </script>");
 
 		}
 

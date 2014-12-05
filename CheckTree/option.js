@@ -1,4 +1,31 @@
+function search_view(){
+	$.post('requestor.jsp',{tree:tree,b_user:b_user},function(data){
+		var is_ok;
+		var check ='';
+		check +='<li class="active"><a href="#" id="search_box" class="option_list">검색유무</a></li>'
+		$.each(data,function(entryIndex,entry){
+			is_ok=entry.view;	
+		});
+		if(is_ok=="0"){
+			$('#option_ul').append(check);
+			$('#search_box').click(function(){
+				var result = confirm("검색공개로 전환하면 다시 되돌리실수 없습니다. 정말 하시겠습니까?");
+				if(result){
+					$.post('search_ok.jsp',{tree:tree,b_user:b_user},function(){;
+						var para = encodeURIComponent(tree);
+						window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+					});
+				}else{
+					//
+				}
+			});
+		}
+	},"json");	
+}
+
+
 $(document).ready(function(){
+
 	var html='<ul class="nav nav-pills nav-stacked">';
 	var on='<input type="checkbox"  name="my-checkbox" checked>';
 	var off='<input type="checkbox" name="my-checkbox">';
@@ -14,11 +41,11 @@ $(document).ready(function(){
 	list +='</ul>'
 	$('#option').html(html);
 	$('#option').append(list);
+	search_view();
 	$("[name='my-checkbox']").bootstrapSwitch();	
 	$('#option_ul').hide();
 
 	$('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-		
 		if(state==true){
 			$('#option_ul').show();
 		}else{
@@ -41,7 +68,7 @@ $(document).ready(function(){
 			alert(val + "님을 협력자로 추가하였습니다");
 			$.post('add_mem.jsp',{tree:tree,b_user:b_user,val:val});		
 		});
-	});
+	}); 
 	$('#save').click(function(){
 		var html='';
 		html += '<div id="flag_save" class="form-group has-success">';

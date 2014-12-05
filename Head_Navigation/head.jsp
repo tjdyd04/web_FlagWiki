@@ -20,7 +20,6 @@
       <link href="./stylesheet/reset.css" rel="stylesheet" type="text/css">
       <link href="./stylesheet/head.css" rel="stylesheet" type="text/css">  
 
-  -->
 </head>
 <body>
     <div id="layer_fixed">
@@ -29,22 +28,22 @@
        <td style="vertical-align:middle; padding-left: 20px; padding-right: 20px;">
       
         <%
-        if(!isset((String)session.getAttribute("user")))
+        String userName = (String)session.getAttribute("user");
+        if(!isset(userName))
         {
 
-          out.println("<button type=\"button\" class=\"btn btn-success btn-lg pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Join'\"> 회원가입 </button>");
-          out.println("<button type=\"button\" class=\"btn btn-default btn-lg pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Login'\"> 로그인 </button>"); 
+          out.println("<button type=\"button\" class=\"btn btn-success  pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Join'\"> 회원가입 </button>");
+          out.println("<button type=\"button\" class=\"btn btn-default  pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Login'\"> 로그인 </button>"); 
         }
         else
         {
-      //    out.println((String)session.getAttribute("user" + "님 ");
+
+         out.println("<button type=\"button\" class=\"btn btn-danger pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Login/sessionLogout.jsp'\"> 로그아웃 </button>"); 
          
-          out.println("<button type=\"button\" class=\"btn btn-danger pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Login/sessionLogout.jsp'\"> ");
-          out.println((String)session.getAttribute("user" + "님"));
+          out.println("<button type=\"button\" class=\"btn btn-default pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Search/Repositores.jsp'\"> ");
+          out.println( userName +"님");
           out.println("</button>"); 
-          out.println("<button type=\"button\" class=\"btn btn-danger pull-right\" onClick=\"location.href='http://www.flagwiki.co.kr/Login/sessionLogout.jsp'\"> 로그아웃 </button>"); 
-
-
+        
          }
 
          %> 

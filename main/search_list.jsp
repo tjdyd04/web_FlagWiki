@@ -13,11 +13,11 @@
 	String search_sql="";
 	
 	if(type.equals("제목")){
-		search_sql="SELECT * FROM tree WHERE title LIKE ?";
+		search_sql="SELECT * FROM tree WHERE view='1' AND title LIKE ? ";
 	}else if(type.equals("설명")){
-		search_sql="SELECT * FROM tree WHERE description LIKE ?";
+		search_sql="SELECT * FROM tree WHERE view='1' AND description LIKE ?";
 	}else if(type.equals("작성자")){
-		search_sql="SELECT * FROM tree WHERE user LIKE ?";
+		search_sql="SELECT * FROM tree WHERE view='1' AND user LIKE ? ";
 	}
 
 
