@@ -1,5 +1,5 @@
     $(document).ready(function() {
-		$.post('main_json.jsp',{tree:tree,b_user:b_user,version:version},function(data){
+		$.post('/CheckTree/tree/main_json.jsp',{tree:tree,b_user:b_user,version:version},function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
@@ -43,7 +43,7 @@
                jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
 
                type = $(element).find('span.daredevel-tree-label:first').attr('branch_idx');
-               $.post('main_outpage.jsp',
+               $.post('/CheckTree/tree/main_outpage.jsp',
                      {idx: $('#idx'+jidx).val(),type:type,tree:tree,b_user:b_user,version:version},
                      function(data){
                         $('#right').html(data);

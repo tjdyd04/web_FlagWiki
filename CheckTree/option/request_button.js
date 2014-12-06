@@ -7,7 +7,7 @@
 					var m_title = $('#main_title').prop('value');
 					var data = CKEDITOR.instances['contents'].getData();
 	    			$("span[idx="+idx+"]").html(m_title);   	
-					$.post("propose.jsp",
+					$.post("/CheckTree/option/propose.jsp",
 					{idx:idx,title:m_title,data:data,r_type:r_type});			
 				}else{
 				//no
@@ -18,11 +18,11 @@
 					var m_title = $('#main_title').prop('value');
 					var data = CKEDITOR.instances['contents'].getData();
 	    			$("span[idx="+idx+"]").html(m_title);   	
-					$.post("request_update.jsp",
+					$.post("/CheckTree/option/request_update.jsp",
 					{idx:idx,title:m_title,data:data});			
 					alert("수정되었습니다.");
 					var para = encodeURIComponent(tree);
-					window.location='index.jsp?tree=' + para +'&b_user=' +b_user;
+					window.location='/CheckTree/index.jsp?tree=' + para +'&b_user=' +b_user;
 				}else{
 				//no
 				}
@@ -35,11 +35,11 @@
 						var m_title = $('#main_title').prop('value');
 						var data = CKEDITOR.instances['contents'].getData();
 	    				$("span[idx="+idx+"]").html(m_title);   	
-						$.post("receive_update.jsp",
+						$.post("/CheckTree/option/receive_update.jsp",
 						{idx:idx,title:m_title,data:data,board_idx:board_idx});			
 						alert("적용 되었습니다.");
 						var para = encodeURIComponent(tree);
-						window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+						window.location='/CheckTree/board.jsp?tree=' + para +'&b_user=' +b_user;
 					}else{
 						//
 					}

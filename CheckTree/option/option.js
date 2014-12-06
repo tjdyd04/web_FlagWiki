@@ -1,5 +1,5 @@
 function search_view(){
-	$.post('requestor.jsp',{tree:tree,b_user:b_user},function(data){
+	$.post('/CheckTree/option/requestor.jsp',{tree:tree,b_user:b_user},function(data){
 		var is_ok;
 		var check ='';
 		check +='<li class="active"><a href="#" id="search_box" class="option_list">검색유무</a></li>'
@@ -11,9 +11,9 @@ function search_view(){
 			$('#search_box').click(function(){
 				var result = confirm("검색공개로 전환하면 다시 되돌리실수 없습니다. 정말 하시겠습니까?");
 				if(result){
-					$.post('search_ok.jsp',{tree:tree,b_user:b_user},function(){;
+					$.post('/CheckTree/option/search_ok.jsp',{tree:tree,b_user:b_user},function(){;
 						var para = encodeURIComponent(tree);
-						window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+						window.location='/CheckTree/board.jsp?tree=' + para +'&b_user=' +b_user;
 					});
 				}else{
 					//
@@ -81,7 +81,7 @@ $(document).ready(function(){
 		$('#save_button').click(function(){
 			var val=$('#flag_text').val();
 			alert("깃발을 저장하였습니다");
-			$.post('save_flag.jsp',{tree:tree,b_user:b_user,val:val});
+			$.post('/CheckTree/option/save_flag.jsp',{tree:tree,b_user:b_user,val:val});
 		});
 	});
 	$('#flag_list').click(function(){
@@ -89,7 +89,7 @@ $(document).ready(function(){
 		if(version == null){
 			alert(version);
 		}
-		$.post('list_flag.jsp',{tree:tree,b_user:b_user}, function(data){
+		$.post('/CheckTree/option/list_flag.jsp',{tree:tree,b_user:b_user}, function(data){
 			var button_class="";
 			$.each(data,function(entryIndex,entry){
 				if(entry.tree_ver == entry.version){
@@ -113,21 +113,21 @@ $(document).ready(function(){
 			$('[attribute="change"]').click(function(){
 				var flag_version = $(this).attr("flag_version");
 				var para = encodeURIComponent(tree);
-				$.post('change_ver.jsp',{tree:tree,b_user:b_user,flag_version:flag_version});
+				$.post('/CheckTree/option/change_ver.jsp',{tree:tree,b_user:b_user,flag_version:flag_version});
 				alert(flag_version + "번쨰 깃발로 전환하였습니다");
 
-				window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+				window.location='/CheckTree/board.jsp?tree=' + para +'&b_user=' +b_user;
 			});
 			$('[attribute="view"]').click(function(){
 				var flag_version = $(this).attr("flag_version");
 				var para = encodeURIComponent(tree);
-				window.location='board.jsp?tree=' + para +'&b_user=' +b_user +'&version=' + flag_version;
+				window.location='/CheckTree/board.jsp?tree=' + para +'&b_user=' +b_user +'&version=' + flag_version;
 
 			});
 		},"json");
 	});
 	$('#mypage').click(function(){
-			$.post('receive.jsp',{tree:tree,b_user:b_user},function(data){
+			$.post('/CheckTree/option/receive.jsp',{tree:tree,b_user:b_user},function(data){
 				var html='<table id="request_table"></table>';
 				$('#right').html(html);
 				$('#request_table').bootstrapTable({
@@ -155,7 +155,7 @@ $(document).ready(function(){
 						title:'작성날짜'
 					}]
 				}).on('click-row.bs.table', function (e, row, $element) {
-          			$.post('receive_board.jsp',{idx:row.idx,type:row.type,board_idx:row.board_idx}, function(data){
+          			$.post('/CheckTree/option/receive_board.jsp',{idx:row.idx,type:row.type,board_idx:row.board_idx}, function(data){
                        	$('#right').html(data);
       		     	});
 				});	
@@ -169,7 +169,7 @@ $(document).ready(function(){
 
 function show_user(){
 	var html='';
-	$.post('mem_json.jsp',{tree:tree,b_user:b_user},function(data){
+	$.post('/CheckTree/option/mem_json.jsp',{tree:tree,b_user:b_user},function(data){
 		var user_id="";
 		$.each(data,function(entryIndex,entry){
 			if(entry.rank=='0'){

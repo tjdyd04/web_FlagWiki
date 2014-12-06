@@ -63,12 +63,12 @@
 <%
 	if(version==null){
 %>
-<script type="text/javascript" src="/CheckTree/tree.js"></script>
+<script type="text/javascript" src="/CheckTree/tree/tree.js"></script>
 <%
 	}else{
 %>
-<script type="text/javascript" src="/CheckTree/main_tree.js"></script>
+<script type="text/javascript" src="/CheckTree/tree/main_tree.js"></script>
 <%	
 	}
 %>
-<script type="text/javascript" src="/CheckTree/option.js"></script>
+<script type="text/javascript" src="/CheckTree/option/option.js"></script>

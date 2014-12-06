@@ -8,11 +8,11 @@
 <meta charset=UTF-8"/>
 <title>게시판 등록</title>
 <script type="text/javascript" src="/CheckTree/ckeditor/ckeditor.js"></script>
-<script src="/CheckTree/button.js"></script>
+<script src="/CheckTree/tree/button.js"></script>
 <script type="text/javascript">
 var idx="<%=idx%>";
 $(document).ready(function(){
-    $.post('board_json.jsp',{idx:idx}, function(data) {
+    $.post('/CheckTree/board/board_json.jsp',{idx:idx}, function(data) {
 		var html = '';
         $.each(data, function(entryIndex, entry) {
 			html += '<input type="text" id="main_title" class="form-control" placeholder="Text input" name="title" value="' + entry.title + '">'; 

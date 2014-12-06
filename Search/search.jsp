@@ -17,12 +17,12 @@
 <script type="text/javascript" src="/CheckTree/minified/bootstrap-table.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/CheckTree/minified/bootstrap-table.min.css"/>
-<link rel="stylesheet" type="text/css" href="search.css">
+<link rel="stylesheet" type="text/css" href="/Search/css/search.css">
 <script>
 var s_cate="<%=s_cate%>";
 var s_title="<%=s_title%>";
 </script>
-<script type="text/javascript" src="search.js"></script>
+<script type="text/javascript" src="/Search/js/search.js"></script>
 </head>
 <body>
 <jsp:include page="../Head_Navigation/head.jsp" flush="false" />

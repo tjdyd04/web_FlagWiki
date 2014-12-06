@@ -46,6 +46,7 @@
 <H3>게임 카테고리</H3>
 <div id="cate_area"></div>
 <div id="last">
+
 <input type="submit" id="rep_submit" class="btn btn-success" value="저장소만들기">
 <div>
 </form>

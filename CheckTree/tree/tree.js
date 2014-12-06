@@ -1,5 +1,5 @@
    $(document).ready(function() {
-		$.post('tree_json.jsp',{tree:tree,b_user:b_user},function(data){
+		$.post('/CheckTree/tree/tree_json.jsp',{tree:tree,b_user:b_user},function(data){
 		var html = '';
 		var leaf_num;
         $.each(data, function(entryIndex, entry) {
@@ -47,7 +47,7 @@
             },
             select: function(event, element) {
                jidx = $(element).find('span.daredevel-tree-label:first').attr('idx');
-               $.post('js_board.jsp',
+               $.post('/CheckTree/board/js_board.jsp',
                      {idx: $('#idx'+jidx).val()},
                      function(data){
                         $('#right').html(data);
@@ -68,10 +68,10 @@
 					var result = confirm("추가?");
 					if(result){
 						var AddTitle = $('#AddTree').prop('value');
-						$.post("insert.jsp",
+						$.post("/CheckTree/tree/insert.jsp",
 						{idx:idx,AddTitle:AddTitle,num:num,type:type,Bnum:Bnum,tree:tree,b_user:b_user},function(){
 						var para = encodeURIComponent(tree);
-						window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+						window.location='/CheckTree/board.jsp?tree=' + para +'&b_user=' +b_user;
 						});
 					}else{
 						//no
@@ -84,10 +84,10 @@
 			var type = $(this).attr('Btype');
 			var result = confirm("정말 삭제 하시겠습니까?");
 			if(result){
-				$.post("delete.jsp",
+				$.post("/CheckTree/tree/delete.jsp",
 				{idx:idx,type:type},function(){
 				var para = encodeURIComponent(tree);
-				window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+				window.location='/CheckTree/board.jsp?tree=' + para +'&b_user=' +b_user;
 				});
 			}else{
 				//no

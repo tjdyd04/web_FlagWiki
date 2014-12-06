@@ -9,15 +9,15 @@
 <head>
 <meta http-ｅquiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시판 등록</title>
-<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-<script src="request_button.js"></script>
+<script type="text/javascript" src="/CheckTree/ckeditor/ckeditor.js"></script>
+<script src="/Checktree/option/request_button.js"></script>
 <script type="text/javascript">
 var idx="<%=idx%>";
 var type="<%=type%>";
 var board_idx="<%=board_idx%>";
 
 $(document).ready(function(){
-    $.post('request_json.jsp',{idx:idx,board_idx:board_idx}, function(data) {
+    $.post('/CheckTree/option/request_json.jsp',{idx:idx,board_idx:board_idx}, function(data) {
 		var html = '';
 		var copy_html ='';
         $.each(data, function(entryIndex, entry) {

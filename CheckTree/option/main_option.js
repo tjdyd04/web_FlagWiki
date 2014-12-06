@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	var is_ok="-1";
 	var check;
-	$.post('requestor.jsp',{tree:tree,b_user:b_user},function(data){
+	$.post('/CheckTree/option/requestor.jsp',{tree:tree,b_user:b_user},function(data){
 		$.each(data,function(entryIndex,entry){
 			is_ok=entry.rank;	
 		});
@@ -34,16 +34,16 @@ $(document).ready(function(){
 			}else{
 				if(state==true){
 					$('#option_ul').show();
-					$.post('adj.jsp',{tree:tree,b_user:b_user});
+					$.post('/CheckTree/option/adj.jsp',{tree:tree,b_user:b_user});
 				}else{
 					$('#option_ul').hide();
-					$.post('adj.jsp',{tree:tree,b_user:b_user});
+					$.post('/CheckTree/option/adj.jsp',{tree:tree,b_user:b_user});
 				}
 			}
 		});
 		$('#mem_list').click(function(){
 			var html='';
-			$.post('mem_json.jsp',{tree:tree,b_user:b_user},function(data){
+			$.post('/CheckTree/option/mem_json.jsp',{tree:tree,b_user:b_user},function(data){
 				var user_id="";
 				$.each(data,function(entryIndex,entry){
 					if(entry.rank=='0'){
@@ -66,7 +66,7 @@ $(document).ready(function(){
 			$('#right').prepend(button);
 			
 			$('#modified').click(function(){
-               $.post('request_board.jsp',
+               $.post('/CheckTree/board/request_board.jsp',
                      {idx:jidx},
                      function(data){
                         $('#right').html(data);
@@ -74,7 +74,7 @@ $(document).ready(function(){
 			});
 			$('#propose').click(function(){
 			   var r_type="propose";
-               $.post('request_board.jsp',
+               $.post('/CheckTree/board/request_board.jsp',
                      {idx:jidx,r_type:r_type},
                      function(data){
                         $('#right').html(data);
@@ -87,7 +87,7 @@ $(document).ready(function(){
 			if(version == null){
 				alert(version);
 			}	
-			$.post('list_flag.jsp',{tree:tree,b_user:b_user}, function(data){
+			$.post('/CheckTree/option/list_flag.jsp',{tree:tree,b_user:b_user}, function(data){
 				var button_class="";
 				$.each(data,function(entryIndex,entry){
 					if(entry.tree_ver == entry.version){
@@ -110,12 +110,12 @@ $(document).ready(function(){
 				$('[attribute="view"]').click(function(){
 					var flag_version = $(this).attr("flag_version");
 					var para = encodeURIComponent(tree);
-					window.location='index.jsp?tree=' + para +'&b_user=' +b_user +'&version=' + flag_version;
+					window.location='/CheckTree/index.jsp?tree=' + para +'&b_user=' +b_user +'&version=' + flag_version;
 				});
 			},"json");
 		});
 		$('#mypage').click(function(){
-				$.post('mypage.jsp',{tree:tree,b_user:b_user},function(data){
+				$.post('/CheckTree/option/mypage.jsp',{tree:tree,b_user:b_user},function(data){
 					var html='<table id="request_table"></table>';
 					$('#right').html(html);
 					$('#request_table').bootstrapTable({
@@ -140,7 +140,7 @@ $(document).ready(function(){
 							title:'작성날짜'
 						}]
 					}).on('click-row.bs.table', function (e, row, $element) {
-               			$.post('request_list.jsp',{idx:row.idx}, function(data){
+               			$.post('/CheckTree/option/request_list.jsp',{idx:row.idx}, function(data){
                         	$('#right').html(data);
           		     	});
 					});	

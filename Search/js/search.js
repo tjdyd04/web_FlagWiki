@@ -51,6 +51,9 @@ $(document).ready(function(){
 					},{
 					field:'description',
 					title:'설명'
+					},{
+					field:'last_update',
+					title:'업데이트날짜'
 				}]
 			});	
 

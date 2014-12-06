@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <!-- include plugin -->
 <link rel="stylesheet" type="text/css" href="/CheckTree/minified/bootstrap-table.min.css"/>
-<link rel="stylesheet" type="text/css" href="search.css">
+<link rel="stylesheet" type="text/css" href="/Search/css/search.css">
 
 </head>
 <body>

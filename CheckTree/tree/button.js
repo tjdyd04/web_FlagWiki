@@ -5,7 +5,7 @@
 				var m_title = $('#main_title').prop('value');
 				var data = CKEDITOR.instances['contents'].getData();
 	    		$("span[idx="+idx+"]").html(m_title);   	
-				$.post("update.jsp",
+				$.post("/CheckTree/board/update.jsp",
 				{idx:idx,title:m_title,data:data});			
 			}else{
 				//no

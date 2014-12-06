@@ -15,7 +15,7 @@
 var idx="<%=idx%>";
 var r_type="<%=r_type%>";
 $(document).ready(function(){
-    $.post('board_json.jsp',{idx:idx}, function(data) {
+    $.post('/Checktree/option/board_json.jsp',{idx:idx}, function(data) {
 		var html = '';
         $.each(data, function(entryIndex, entry) {
 			var title=entry.title;
