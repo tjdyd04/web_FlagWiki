@@ -1,11 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-	String user = (String)session.getAttribute("user");
-	String tree = request.getParameter("tree");
-	tree = new String(request.getParameter("tree").getBytes("iso-8859-1"), "UTF-8");//get 방식의경우
-	String b_user = request.getParameter("b_user");
-	String version = request.getParameter("version");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,14 +17,8 @@
 <link rel="stylesheet" type="text/css" href="css/Main.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap-switch.css"/>
 <link rel="stylesheet" type="text/css" href="minified/bootstrap-table.min.css"/>
+<jsp:include page="rank_comp.jsp" flush="false" />
 <!-- initialize checkboxTree plugin -->
-<script>
-	var user ="<%=user%>";
-	var tree ="<%=tree%>";
-	var b_user ="<%=b_user%>";
-	var version="<%=version%>";
-	var jidx;
-</script>
 <script type="text/javascript" src="main_tree.js"></script>
 <script type="text/javascript" src="main_option.js"></script>
 </head>    

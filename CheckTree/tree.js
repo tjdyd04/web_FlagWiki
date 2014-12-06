@@ -6,13 +6,15 @@
 			if(entry.branch==0){
 				html += '<ul>';
 				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
-				html += '<button type="button"  class="btn btn-default btn-xs" num="' + entry.branch_num + '" Btype="tree" Btitle="' + entry.title + '" idx="' + entry.idx + '"><span class="glyphicon glyphicon-chevron-down"></span></button>';
+				html += '<button type="button" option="add" class="btn btn-default btn-xs" num="' + entry.branch_num + '" Btype="tree" Btitle="' + entry.title + '" idx="' + entry.idx + '"><span class="glyphicon glyphicon-chevron-down"></span></button>';
+
 			}
 			if(entry.branch!=0 && entry.leaf==0){
 				leaf_num = entry.leaf_num;
 				html += '<ul>';
 				html += '<li class="collapsed"><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
-				html += '<button type="button" class="btn btn-default btn-xs" num="' + entry.leaf_num + '" Btype="branch" Btitle="' + entry.title + '" idx="' + entry.idx + '" Bnum="' + entry.branch + '"><span class="glyphicon glyphicon-chevron-down"></span></button>';
+				html += '<button type="button" option="add" class="btn btn-default btn-xs" num="' + entry.leaf_num + '" Btype="branch" Btitle="' + entry.title + '" idx="' + entry.idx + '" Bnum="' + entry.branch + '"><span class="glyphicon glyphicon-chevron-down"></span></button>';
+				html += '<button type="button" option="delete" class="btn btn-default btn-xs" Btype="branch" idx="' + entry.idx + '"><span class="glyphicon glyphicon-remove"></span></button>';
 				if(leaf_num !=0){
 					html += '<ul>';
 				}else{
@@ -21,6 +23,8 @@
 			}
 			if(entry.branch!=0 && entry.leaf!=0){
 				html += '<li><input type="checkbox"><span idx=' + entry.idx+ '>' + entry.title + '</span><input type="hidden" id="idx' + entry.idx + '"' + ' value=' + entry.idx +'>';
+
+				html += '<button type="button" option="delete" class="btn btn-default btn-xs" idx="' + entry.idx + '"><span class="glyphicon glyphicon-remove"></span></button>';
 				if(entry.leaf == leaf_num){
 					html += '</ul></ul>';
 				}
@@ -50,7 +54,7 @@
           		     });
             	}
         	});
-		$('#tree button').click(function(){
+		$('#tree button[option=add]').click(function(){
 				var type = $(this).attr('Btype');
 				var num = $(this).attr('num');
 				var Bnum = $(this).attr('Bnum');
@@ -74,5 +78,20 @@
 					}
 				});
 			});
+
+		$('#tree button[option=delete]').click(function(){
+			var idx = $(this).attr('idx');
+			var type = $(this).attr('Btype');
+			var result = confirm("정말 삭제 하시겠습니까?");
+			if(result){
+				$.post("delete.jsp",
+				{idx:idx,type:type},function(){
+				var para = encodeURIComponent(tree);
+				window.location='board.jsp?tree=' + para +'&b_user=' +b_user;
+				});
+			}else{
+				//no
+			}
+		});
   		},"json");
 	});

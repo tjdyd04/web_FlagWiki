@@ -62,6 +62,10 @@
 	color:#222;
 	background-color:#eee;
 }
+#right p span.label{
+	font-size:15.75px;
+}
+
 #insert_mem{
 	margin-top:50px;
 	width:300px;

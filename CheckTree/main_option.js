@@ -19,6 +19,7 @@ $(document).ready(function(){
 		list +='<li class="active"><a href="#" id="request" class="option_list">요청하기</a></li>';
 		list +='<li class="active"><a href="#" id="mypage" class="option_list">마이페이지</a></li>';
 		list +='<li class="active"><a href="#" id="flag_list" class="option_list">깃발항목</a></li>';
+		list +='<li class="active"><a href="#" id="my_rep" class="option_list">나의저장소</a></li>'
 		list +='</ul>'
 		$('#option').html(html);
 		$('#option').append(list);
@@ -27,12 +28,17 @@ $(document).ready(function(){
 		$('#option_ul').hide();
 		}
 		$('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-			if(state==true){
-				$('#option_ul').show();
-				$.post('adj.jsp',{tree:tree,b_user:b_user});
+
+			if(user=="null"){
+				window.location='/Login/login.jsp';
 			}else{
-				$('#option_ul').hide();
-				$.post('adj.jsp',{tree:tree,b_user:b_user});
+				if(state==true){
+					$('#option_ul').show();
+					$.post('adj.jsp',{tree:tree,b_user:b_user});
+				}else{
+					$('#option_ul').hide();
+					$.post('adj.jsp',{tree:tree,b_user:b_user});
+				}
 			}
 		});
 		$('#mem_list').click(function(){
@@ -41,11 +47,11 @@ $(document).ready(function(){
 				var user_id="";
 				$.each(data,function(entryIndex,entry){
 					if(entry.rank=='0'){
-						user_id="label label-primary";
+						user_id="label label-primary glyphicon glyphicon-home";
 					}else if(entry.rank=='1'){
-						user_id="label label-success";
+						user_id="label label-success glyphicon glyphicon-flag";
 					}else if(entry.rank=='2'){
-						user_id="label label-warning";
+						user_id="label label-warning glyphicon glyphicon-user";
 					}
 					html+='<p><span class="' + user_id + '">' + entry.user + '</span></p>';				
 				});
@@ -140,5 +146,9 @@ $(document).ready(function(){
 					});	
 				},"json");
 			});
+	$('#my_rep').click(function(){
+		var para = encodeURIComponent(tree);
+		window.location='/Search/Repositores.jsp';
+		});
 	},"json");
 });

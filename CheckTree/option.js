@@ -38,6 +38,7 @@ $(document).ready(function(){
 	list +='<li class="active"><a href="#" id="mypage" class="option_list">요청항목</a></li>';
 	list +='<li class="active"><a href="#" id="save" class="option_list">깃발저장</a></li>';
 	list +='<li class="active"><a href="#" id="flag_list" class="option_list">깃발목록</a></li>'
+	list +='<li class="active"><a href="#" id="my_rep" class="option_list">나의저장소</a></li>'
 	list +='</ul>'
 	$('#option').html(html);
 	$('#option').append(list);
@@ -160,6 +161,10 @@ $(document).ready(function(){
 				});	
 			},"json");
 		});	
+	$('#my_rep').click(function(){
+		var para = encodeURIComponent(tree);
+		window.location='/Search/Repositores.jsp';
+	});
 });
 
 function show_user(){
@@ -168,11 +173,11 @@ function show_user(){
 		var user_id="";
 		$.each(data,function(entryIndex,entry){
 			if(entry.rank=='0'){
-				user_id="label label-primary";
+				user_id="label label-primary glyphicon glyphicon-home";
 			}else if(entry.rank=='1'){
-				user_id="label label-success";
+				user_id="label label-success glyphicon glyphicon-flag";
 			}else if(entry.rank=='2'){
-				user_id="label label-warning";
+				user_id="label label-warning glyphicon glyphicon-user";
 			}
 			html+='<p><span class="' + user_id + '">' + entry.user + '</span></p>';				
 		});
